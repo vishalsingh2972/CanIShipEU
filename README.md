@@ -1,853 +1,363 @@
-# CanIShipEU 🇪🇺
+# 🇪🇺 CanIShipEU
 
-> **Can you ship this in Europe? Just ask.**
+### Can you ship this in Europe? Just ask.
 
-CanIShipEU is a **voice-first regulatory research assistant for startup founders**.
+**CanIShipEU** is a voice-first regulatory research assistant for startup founders.
 
-A founder describes what they are building in natural language. CanIShipEU first tries to understand the startup, identifies information that is missing, asks targeted follow-up questions, determines which regulatory topics are relevant, researches authoritative EU sources, reasons over the retrieved evidence, and produces a structured pre-launch assessment.
+Describe what you're building in your own words. CanIShipEU turns that description into a structured startup profile, identifies the regulatory questions that actually matter, researches authoritative EU sources, and explains the result in plain language — including an **EU vs US comparison**.
 
-The founder can then continue the conversation and ask questions such as:
-
-> “Why did you classify us as yellow?”
-
-> “What if we launch in the US instead?”
-
-> “What changes if a human makes the final decision?”
-
-The goal is **not** to replace lawyers or provide guaranteed legal advice.
-
-The goal is to make the first regulatory investigation much easier for a founder:
-
-> **“I'm building this product. What do I need to know before I launch it in Europe?”**
+> **Your startup idea. EU reality. One conversation.**
 
 ---
 
-# The Core Idea
+## Why CanIShipEU?
 
-CanIShipEU is **not** intended to be “ChatGPT Voice + Google search.”
+Founders don't usually wake up thinking:
 
-General-purpose AI assistants can already understand speech, search the web, and answer regulatory questions.
+> "I need to determine whether my AI system falls under a particular regulatory classification."
 
-The product therefore needs to do something more specific.
+They think:
 
-A generic AI experience looks roughly like:
+> "I'm building an AI recruiter. Can I launch it in Germany?"
 
-```text
-Founder question
-      ↓
-General-purpose AI
-      ↓
-Answer
-```
+or:
 
-CanIShipEU is designed as a structured investigation workflow:
+> "We're building an AI medical assistant. What do we need before launching in Europe?"
 
-```text
-Founder speaks
-      ↓
-Understand the startup
-      ↓
-Create StartupProfile
-      ↓
-Identify missing information
-      ↓
-Ask targeted questions
-      ↓
-Map regulatory topics
-      ↓
-Generate research questions
-      ↓
-Retrieve authoritative evidence
-      ↓
-Reason over evidence
-      ↓
-Validate assessment
-      ↓
-Generate structured result
-      ↓
-Explain by voice
-      ↓
-Founder asks follow-up questions
-```
+The problem isn't simply finding regulations.
 
-The important product is therefore not simply the LLM.
+The problem is figuring out **which regulations are relevant to the specific product being built**.
 
-The product is the **workflow surrounding the LLM**.
+CanIShipEU is designed around that problem.
 
----
-
-# The Problem
-
-European startup founders often have a simple question:
-
-> **“Can I launch this in Europe?”**
-
-Getting a useful answer can be difficult because the information needed to answer that question may be spread across:
-
-* European Commission websites
-* EUR-Lex
-* EU regulations
-* official guidance
-* implementation timelines
-* national authorities
-* technical requirements
-* legal interpretations
-
-The problem is not necessarily that the information does not exist.
-
-The problem is that founders describe products in **startup language**, while regulations describe situations in **regulatory language**.
-
-A founder might say:
-
-> “We're building an AI system that ranks job candidates.”
-
-The relevant regulatory concepts might involve:
-
-* employment
-* candidate evaluation
-* AI system classification
-* provider/deployer responsibilities
-* human oversight
-* documentation
-* transparency
-* personal data
-* potentially sensitive data
-* implementation dates
-
-A founder should not need to know all of those concepts before asking the question.
-
-**CanIShipEU's job is to bridge that gap.**
-
----
-
-# Who Is It For?
-
-The primary user is:
-
-> **A startup founder who wants to understand the regulatory considerations around launching a product in Europe.**
-
-The prototype is particularly suited to areas where regulation can be especially relevant, such as:
-
-* AI recruitment
-* medical/health AI
-* biometrics
-* surveillance
-* credit/financial decision systems
-* education AI
-* content-generation systems
-* industrial/computer-vision systems
-* other AI products with significant real-world impact
-
-The initial version should intentionally support a limited set of scenarios rather than pretending to cover every EU law and every industry.
-
----
-
-# What We Are Building
-
-The founder should be able to start with something as simple as:
-
-> “I'm building an AI recruiter that reads CVs, scores candidates and recommends who should get interviewed. We're planning to launch in Germany next year.”
-
-CanIShipEU should **not immediately answer**.
-
-Instead, it should determine whether important information is missing.
-
-For example:
-
-> “Does the AI make the final hiring decision, or does a human make the final decision?”
-
-The founder answers:
-
-> “A human makes the final decision.”
-
-The system now has a more complete understanding of the product.
-
-It can then research the relevant regulatory topics and produce an assessment.
-
-For example:
-
-> 🟡 **YELLOW**
->
-> Your product may be deployable in the EU, but employment-related AI can involve significant regulatory requirements.
->
-> The main areas you should investigate are...
-
-The system should explain **why** it reached that assessment and show the evidence behind the relevant conclusions.
-
----
-
-# Product Philosophy
-
-The core principle is:
+### Product philosophy
 
 > **Don't ask the founder to understand regulation. Understand the founder's product first.**
 
-A founder should not need to know:
+Instead of forcing founders through a regulatory questionnaire, CanIShipEU starts with a natural conversation.
 
-> “Which article should I search?”
-
-They should be able to say:
-
-> “Here's what we're building.”
-
-CanIShipEU figures out:
-
-> “What do I need to know about this product before I can meaningfully assess it?”
+The system progressively turns that conversation into the context required for meaningful regulatory research.
 
 ---
 
-# Why This Is Different From a Generic AI Chatbot
+# 🎙️ The Core Experience
 
-CanIShipEU does not claim that its underlying LLM is smarter than ChatGPT, Gemini, Claude, or another general-purpose model.
+A founder can simply say:
 
-The differentiation is in the **system design**.
+> "I'm building an AI recruitment platform that reads CVs, scores candidates and recommends who should get interviewed. We're planning to launch in France next year."
 
-A generic AI can potentially answer:
+CanIShipEU might ask:
 
-> “Is AI recruitment regulated in Europe?”
+> "Does the AI make the final hiring decision, or does a human make the final decision?"
 
-CanIShipEU attempts to conduct a more structured investigation:
+The founder answers:
+
+> "A human makes the final decision."
+
+CanIShipEU then uses that additional context to determine what should actually be researched.
+
+The result is not just an AI-generated paragraph.
+
+It is a structured investigation:
 
 ```text
-Startup
+Founder
    ↓
-Structured startup profile
+Natural language description
    ↓
-Regulatory classification
+Understand the startup
    ↓
-Targeted questions
+Build StartupProfile
    ↓
-Targeted research
+Identify missing information
    ↓
-Relevant evidence
+Ask targeted clarification questions
    ↓
-Evidence-backed reasoning
+Map relevant regulatory topics
    ↓
-Structured assessment
+Generate research questions
+   ↓
+Retrieve authoritative sources
+   ↓
+Extract evidence
+   ↓
+Reason over evidence
+   ↓
+Validate structured assessment
+   ↓
+Explain the result
+   ↓
+Continue the conversation
 ```
-
-This means the founder does not have to know which questions to ask.
-
-The system is responsible for constructing the investigation.
 
 ---
 
-# Why Voice Matters
+# 🧠 What Makes It Different?
 
-Voice is not simply a microphone placed in front of a chatbot.
-
-Voice is one of the main interaction mechanisms of the product.
-
-Instead of asking a founder to fill out a regulatory questionnaire:
+A generic AI regulatory assistant looks like:
 
 ```text
-Industry:
-AI capability:
-Users:
-Affected people:
-Personal data:
-Sensitive data:
-Countries:
-Launch date:
-Human oversight:
-...
+Question
+   ↓
+LLM
+   ↓
+Answer
 ```
 
-the founder can simply talk.
-
-For example:
+CanIShipEU is designed as an investigation workflow:
 
 ```text
-Founder:
-
-"I'm building an AI tool for hospitals
-that analyzes medical images."
-
-Agent:
-
-"Is the system helping doctors diagnose patients,
-or is it mainly organizing medical images?"
-
-Founder:
-
-"It helps doctors identify possible tumors."
-
-Agent:
-
-"Which EU countries are you planning to launch in?"
-
-Founder:
-
-"Germany and France."
-
-Agent:
-
-"Got it. I have enough information to
-research the relevant requirements."
-```
-
-The voice interface therefore acts as a **natural interview layer**.
-
-This is also where Gradium becomes an important part of the technical demonstration.
-
-The prototype can showcase:
-
-* speech-to-text
-* text-to-speech
-* natural conversational interaction
-* multilingual interaction where supported
-* responsive voice feedback
-* potentially interruption/turn-taking
-* optional voice cloning as a future demonstration
-
----
-
-# The Core User Flow
-
-The complete experience is:
-
-```text
-Listen
+Founder
    ↓
 Understand
    ↓
+StartupProfile
+   ↓
 Clarify
    ↓
-Research
+Regulatory Mapping
+   ↓
+Research Questions
+   ↓
+Evidence
    ↓
 Reason
    ↓
 Validate
    ↓
+Assessment
+   ↓
 Explain
    ↓
-Continue conversation
+Follow-up
 ```
 
-More specifically:
+The goal isn't to build a model that is "smarter than ChatGPT."
 
-```mermaid
-flowchart LR
-    A["Founder speaks"] --> B["Gradium STT"]
-    B --> C["Understand startup"]
-    C --> D["StartupProfile"]
+The goal is to build a better **product workflow around the model**.
 
-    D --> E{"Enough information?"}
-
-    E -->|No| F["Ask targeted clarification"]
-    F --> B
-
-    E -->|Yes| G["Identify regulatory topics"]
-
-    G --> H["Generate research questions"]
-
-    H --> I["Retrieve authoritative sources"]
-
-    I --> J["Extract relevant evidence"]
-
-    D --> K["LLM reasoning"]
-    J --> K
-
-    K --> L["Structured assessment"]
-
-    L --> M["Validate result"]
-
-    M --> N["Gradium TTS"]
-    M --> O["Visual assessment"]
-
-    N --> P["Founder hears answer"]
-    O --> P
-
-    P --> Q["Follow-up question"]
-    Q --> B
-```
+> **Don't build an AI that answers regulatory questions. Build an AI that figures out which regulatory questions a founder needs answered.**
 
 ---
 
-# Startup Understanding
+# 👤 Who Is It For?
 
-This is one of the most important components.
+CanIShipEU is primarily designed for:
 
-The founder's natural language should first be converted into a structured internal representation.
+* Startup founders
+* Indie hackers
+* Product teams
+* AI startups
+* Pre-launch companies
+* Developers building products for the EU market
 
-For example:
+Especially founders who are asking:
 
-```text
-Founder:
-
-"I'm building an AI recruiter that reads CVs,
-scores candidates and recommends who should be
-interviewed. A human makes the final decision.
-We're launching in Germany."
-```
-
-The understanding layer could produce:
-
-```json
-{
-  "product": "AI recruitment platform",
-  "domain": "employment",
-  "ai_capability": "candidate scoring and recommendation",
-  "users": [
-    "employers",
-    "recruiters"
-  ],
-  "affected_people": [
-    "job applicants"
-  ],
-  "decision_role": "recommendation",
-  "human_involvement": true,
-  "uses_personal_data": true,
-  "uses_sensitive_data": "unknown",
-  "uses_biometrics": false,
-  "geography": [
-    "Germany",
-    "European Union"
-  ],
-  "planned_launch": "2027"
-}
-```
-
-This object is called:
-
-```text
-StartupProfile
-```
-
-It becomes the central representation used throughout the system.
+> "Can I actually launch this in Europe?"
 
 ---
 
-# StartupProfile
+# 🎯 Initial Use Cases
 
-The initial TypeScript model:
+The prototype intentionally focuses on a limited set of scenarios rather than attempting to cover every EU regulation.
 
-```typescript
+Initial scenarios include:
+
+* 🤖 AI recruitment
+* 🏥 Medical / health AI
+* 👁️ Biometrics
+* 📹 Surveillance systems
+* 💳 Credit and financial decision systems
+* 🎓 Education AI
+* ✍️ Content-generation systems
+* 🏭 Industrial / computer vision systems
+
+The regulatory coverage can expand later as the research layer becomes more mature.
+
+---
+
+# 🧩 Startup Understanding
+
+Before researching regulation, CanIShipEU creates a structured representation of the startup.
+
+Example:
+
+```ts
 type StartupProfile = {
   product: string;
-
   domain?: string;
-
   aiCapability?: string;
-
   users?: string[];
-
   affectedPeople?: string[];
-
   decisionRole?:
     | "none"
     | "assistance"
     | "recommendation"
     | "decision"
     | "unknown";
-
   humanInvolvement?: boolean | "unknown";
-
   usesPersonalData?: boolean | "unknown";
-
   usesSensitiveData?: boolean | "unknown";
-
   usesBiometrics?: boolean | "unknown";
-
   geography?: string[];
-
   plannedLaunch?: string;
-
   additionalContext?: string;
 };
 ```
 
-Everything else in the application consumes this object.
+Example:
 
----
-
-# Why Structured Understanding Matters
-
-Consider two founders.
-
-### Founder A
-
-> “We built a chatbot that helps people understand their CV.”
-
-### Founder B
-
-> “We built an AI that ranks applicants and automatically rejects candidates.”
-
-Both might casually describe their product as:
-
-> “an AI recruiting tool.”
-
-But the regulatory investigation may be very different.
-
-This is why the system must understand the **actual function of the product**, not just its marketing description.
-
----
-
-# Clarification Engine
-
-Founders will often provide incomplete information.
-
-The system should identify missing information that could materially change the assessment.
-
-For example:
-
-```mermaid
-flowchart TD
-    A["Founder description"] --> B["StartupProfile"]
-
-    B --> C{"Critical information missing?"}
-
-    C -->|Yes| D["Generate targeted question"]
-
-    D --> E["Founder answers"]
-
-    E --> B
-
-    C -->|No| F["Begin research"]
+```json
+{
+  "product": "AI recruitment platform",
+  "domain": "employment",
+  "ai_capability": "candidate scoring and recommendation",
+  "users": ["employers", "recruiters"],
+  "affected_people": ["job applicants"],
+  "decision_role": "recommendation",
+  "human_involvement": true,
+  "uses_personal_data": true,
+  "uses_sensitive_data": "unknown",
+  "uses_biometrics": false,
+  "geography": ["France", "European Union"],
+  "planned_launch": "2027"
+}
 ```
 
-Possible questions include:
+This structured representation becomes the foundation for the rest of the investigation.
+
+---
+
+# ❓ Targeted Clarification
+
+CanIShipEU does not ask founders to complete a giant regulatory questionnaire.
+
+Instead, it asks questions only when the answer could materially change the assessment.
+
+Examples:
 
 * Does the AI make the final decision?
-* Does a human review the AI output?
-* Are you processing personal data?
-* Are you processing sensitive data?
-* Are you using biometric information?
+* Does a human review the AI's output?
+* Does the system process personal data?
+* Does it process sensitive data?
+* Does it use biometric information?
 * Who is affected by the system?
 * Which countries are you launching in?
 * When are you planning to launch?
 
-The system should **not ask every possible question**.
-
-It should ask only questions relevant to the startup and questions whose answers could materially change the investigation.
+This creates a conversational experience rather than a form-filling experience.
 
 ---
 
-# Regulatory Mapping
+# ⚖️ Regulatory Mapping
 
-Once we have a sufficiently complete `StartupProfile`, the system determines:
-
-> **Which regulatory topics should we investigate?**
+The system combines deterministic rules with LLM reasoning to identify relevant regulatory areas.
 
 For example:
 
 ```text
-StartupProfile
-      ↓
-Employment AI
-      ↓
-Candidate evaluation
-      ↓
-Potential AI Act relevance
-      ↓
-Human oversight
-      ↓
-Transparency
-      ↓
-Data protection
-      ↓
-Implementation timeline
+IF domain = employment
+AND AI capability = candidate evaluation
+→ flag employment-related AI research
+
+IF usesBiometrics = true
+→ flag biometric AI research
+
+IF geography includes EU
+→ include EU regulatory framework
+
+IF plannedLaunch is in the future
+→ consider rules applicable by launch date
 ```
 
-This step is important because it prevents the LLM from simply receiving a generic prompt such as:
+The exact mapping rules can evolve as regulatory frameworks and guidance change.
 
-> “Tell me everything about EU law.”
+The important architectural principle is:
 
-Instead, the system creates a targeted research plan.
+> **Use deterministic logic where the decision can be explicit. Use the LLM where interpretation is required.**
 
 ---
 
-# Regulatory Question Generation
+# 🔎 Research Engine
 
-The system should turn the startup into specific research questions.
+CanIShipEU does not treat the LLM as the legal authority.
 
-For the AI recruiting example:
+The research layer prioritizes authoritative sources.
 
-```text
-1. Is this use case covered by relevant EU AI rules?
+### Source hierarchy
 
-2. Does candidate evaluation or ranking fall into
-   a regulated/high-risk category?
-
-3. What obligations may apply?
-
-4. Does the role of human decision-makers affect
-   the assessment?
-
-5. What transparency requirements are relevant?
-
-6. What documentation or oversight requirements
-   may apply?
-
-7. What data protection considerations are relevant?
-
-8. Which requirements apply by the planned launch date?
-
-9. Are there France/Germany-specific considerations?
-```
-
-The exact questions depend on the startup.
-
-This is the beginning of the project's **regulatory investigation engine**.
-
----
-
-# Research Layer
-
-The LLM should not be treated as the authoritative source of EU law.
-
-Instead:
-
-```text
-StartupProfile
-      ↓
-Regulatory topics
-      ↓
-Research questions
-      ↓
-Authoritative sources
-      ↓
-Evidence
-      ↓
-LLM reasoning
-```
-
-The research layer should prioritize:
-
-### Tier 1 — Primary / official sources
+**Tier 1 — Primary / authoritative**
 
 * European Commission
 * EUR-Lex
-* official EU institutions
-* official EU guidance
-* official national authorities where relevant
+* Official EU institutions
+* Official EU regulatory guidance
 
-### Tier 2 — Government / regulator sources
+**Tier 2 — National sources**
 
-Relevant national regulators and government guidance.
+* National regulators
+* Government agencies
+* Official national guidance
 
-### Tier 3 — Secondary analysis
+**Tier 3 — Secondary analysis**
 
-Reputable legal or regulatory analysis where useful for context.
+* Reputable legal analysis
+* Regulatory commentary
+* Industry guidance
 
-Secondary sources should not automatically override primary sources.
+Secondary sources can provide context, but the assessment should prioritize primary sources whenever possible.
 
 ---
 
-# Evidence Extraction
+# 📚 Evidence-First Reasoning
 
-The system should not simply collect search-result links and dump everything into the LLM.
+Instead of giving the model a vague instruction like:
 
-The research layer should construct an evidence package.
+> "Tell me whether this startup is legal."
+
+CanIShipEU builds an evidence package.
 
 Conceptually:
 
 ```text
-Question
-    ↓
+Research Question
+       ↓
 Source
-    ↓
-Relevant section
-    ↓
-Relevant fact / passage
-    ↓
-What this evidence supports
+       ↓
+Relevant Section
+       ↓
+Evidence / Fact
+       ↓
+What the Evidence Supports
 ```
 
-For example:
+The assessment layer then reasons over the collected evidence.
 
-```text
-QUESTION
-
-Does this type of employment AI fall into
-a regulated/high-risk category?
-
-SOURCE
-
-Official EU source
-
-RELEVANT EVIDENCE
-
-Relevant provision / guidance
-
-SUPPORTS
-
-Potential classification assessment
-```
-
-The purpose is to make the reasoning process more traceable.
+This makes the system easier to inspect, debug and improve.
 
 ---
 
-# Research and Reasoning Architecture
+# 🟢 🟡 🔴 Assessment
 
-```mermaid
-flowchart TD
+The system produces a structured assessment rather than a single conversational answer.
 
-    A["StartupProfile"] --> B["Regulatory Topic Detection"]
-
-    B --> C["Research Questions"]
-
-    C --> D["Source Retrieval"]
-
-    D --> E["European Commission"]
-    D --> F["EUR-Lex"]
-    D --> G["Official EU / National Sources"]
-
-    E --> H["Evidence"]
-    F --> H
-    G --> H
-
-    A --> I["LLM Reasoning"]
-    C --> I
-    H --> I
-
-    I --> J["Structured Assessment"]
-
-    J --> K["Validation"]
-```
-
-The LLM's job is therefore:
-
-> **Understand the startup → interpret the retrieved evidence → produce an assessment**
-
-rather than:
-
-> **Remember all applicable law → search from memory → make a confident claim**
-
----
-
-# Deterministic Rules + LLM
-
-Not every part of the system needs to be handled by an LLM.
-
-Some obvious mappings can be implemented as application logic.
-
-For example:
-
-```text
-IF
-domain = employment
-AND
-AI capability = candidate evaluation
-
-THEN
-flag employment-AI research
-```
-
-Or:
-
-```text
-IF
-usesBiometrics = true
-
-THEN
-flag biometric AI research
-```
-
-Or:
-
-```text
-IF
-geography includes EU
-
-THEN
-include EU regulatory framework
-```
-
-Or:
-
-```text
-IF
-planned launch is in the future
-
-THEN
-check which rules are applicable
-by the planned launch date
-```
-
-The exact rules will evolve.
-
-The important architecture is:
-
-```text
-Deterministic logic
-        +
-LLM classification/reasoning
-        +
-Authoritative evidence
-```
-
-This reduces unnecessary dependence on model guesses.
-
----
-
-# LLM Reasoning
-
-The assessment model should receive:
-
-```text
-STARTUP PROFILE
-        +
-RESEARCH QUESTIONS
-        +
-RETRIEVED EVIDENCE
-```
-
-The model should be instructed to:
-
-* reason from supplied evidence
-* avoid inventing regulations
-* distinguish fact from interpretation
-* disclose uncertainty
-* avoid unsupported legal conclusions
-* associate important claims with sources
-* produce structured output
-
-Conceptually:
-
-```typescript
-const assessment = await llm.analyze({
-  startupProfile,
-  researchQuestions,
-  evidence
-});
-```
-
----
-
-# Structured Assessment
-
-The model should not return an arbitrary block of prose.
-
-The initial assessment structure can look like:
-
-```typescript
+```ts
 type Assessment = {
   verdict: "GREEN" | "YELLOW" | "RED";
-
   confidence: "low" | "medium" | "high";
-
   summary: string;
-
   why: string[];
-
   relevantRegulations: string[];
-
   requirements: string[];
-
   importantDates: {
     date: string;
     description: string;
   }[];
-
   euVsUs: {
     eu: string;
     us: string;
   };
-
   uncertainties: string[];
-
   sources: {
     title: string;
     url: string;
@@ -855,59 +365,513 @@ type Assessment = {
 };
 ```
 
-The frontend turns this into the result interface.
+### Verdict semantics
 
----
+**🟢 GREEN**
 
-# GREEN / YELLOW / RED
+No major regulatory obstacle was identified from the sources reviewed.
 
-The verdict is a **navigation signal**, not a legal conclusion.
+This does **not** mean the product is guaranteed to be legally compliant.
 
-### 🟢 GREEN
+**🟡 YELLOW**
 
-> No major regulatory obstacle was identified from the information and sources reviewed.
+The product may be launchable, but meaningful regulatory requirements, dependencies or uncertainty need attention.
 
-This does **not** mean guaranteed compliance.
+**🔴 RED**
 
-### 🟡 YELLOW
+A significant restriction, prohibition or serious regulatory obstacle appears relevant based on the evidence reviewed.
 
-> The product may be launchable, but meaningful regulatory/compliance requirements or uncertainty need attention.
+The system should never claim:
 
-### 🔴 RED
-
-> A major restriction, prohibition, or serious regulatory issue appears relevant and should be investigated before launch.
-
-The interface should avoid language such as:
-
-> “You are definitely legal.”
+> "Definitely legal."
 
 or:
 
-> “You are definitely illegal.”
+> "Definitely illegal."
 
-The product is an informational prototype, not a legal authority.
+Instead, it should clearly communicate **what was found, why it matters, and what remains uncertain**.
 
 ---
 
-# Assessment UI
+# 🇪🇺 EU vs 🇺🇸 US
 
-The result should feel like a founder decision tool rather than a long chatbot response.
+Founders often aren't asking only:
+
+> "What does Europe require?"
+
+They're asking:
+
+> "Should we launch in Europe or the US first?"
+
+CanIShipEU therefore includes an EU vs US comparison as part of the assessment.
+
+Example:
+
+```text
+EU 🇪🇺
+Higher regulatory requirements
+Relevant AI obligations
+Data protection considerations
+Human oversight requirements
+Documentation / transparency considerations
+
+US 🇺🇸
+Different federal/state framework
+Different sector-specific requirements
+Different compliance considerations
+Potentially different launch path
+```
+
+The comparison is designed to provide **decision context**, not to pretend that "the US" or "Europe" has one single universal rule.
+
+---
+
+# 🎙️ Voice Is the Interface
+
+Voice isn't just a microphone attached to a chatbot.
+
+It is the primary interaction model.
+
+The founder should be able to explain their startup the same way they would explain it to another founder.
+
+```text
+Founder
+   ↓
+Microphone
+   ↓
+Speech-to-Text
+   ↓
+Conversation State
+   ↓
+Startup Understanding
+   ↓
+Regulatory Research
+   ↓
+Assessment
+   ↓
+Response Text
+   ↓
+Text-to-Speech
+   ↓
+Founder
+```
+
+The screen provides the detailed evidence and assessment.
+
+The voice provides the concise explanation.
+
+This keeps the interaction conversational without hiding the underlying research.
+
+---
+
+# 🔊 Voice Provider Architecture
+
+CanIShipEU uses a provider abstraction rather than tightly coupling the product to one voice API.
+
+```ts
+type VoiceProvider = {
+  transcribe(audio: Buffer): Promise<string>;
+  synthesize(
+    text: string,
+    options?: VoiceOptions
+  ): Promise<Buffer>;
+};
+```
+
+The architecture supports:
+
+```ts
+type VoiceProviderName =
+  | "gradium"
+  | "cartesia"
+  | "sarvam";
+```
+
+### Primary voice stack
+
+**Gradium** is the primary voice provider for the prototype.
+
+It is the default path for the main demo and allows the project to showcase the voice-first experience without making the product dependent on a single implementation detail.
+
+### Cartesia
+
+Cartesia is supported as an optional provider adapter for:
+
+* Voice experiments
+* Latency / quality comparison
+* Alternative TTS paths
+* Future fallback strategies
+
+It does not need to be used simultaneously with Gradium for every request.
+
+### Sarvam
+
+Sarvam is an optional multilingual provider adapter.
+
+Its role is to explore multilingual voice interaction — particularly useful for demonstrating that the underlying product can support founders communicating in languages beyond the initial English-first experience.
+
+Again, it is an adapter rather than a requirement for the core pipeline.
+
+### Why not use all three simultaneously?
+
+Because that would turn the product into an API showcase.
+
+The architecture should instead be:
+
+```text
+                 VoiceProvider
+                      │
+        ┌─────────────┼─────────────┐
+        ↓             ↓             ↓
+    Gradium        Cartesia      Sarvam
+    Primary        Optional      Optional
+```
+
+The product remains the focus.
+
+The providers become interchangeable infrastructure.
+
+---
+
+# 🗣️ Conversation State
+
+The assistant maintains a lightweight conversation history.
+
+```ts
+type ConversationMessage = {
+  role: "user" | "assistant";
+  content: string;
+};
+```
+
+The conversation can move through states such as:
+
+```text
+Idle
+ ↓
+Listening
+ ↓
+Transcribing
+ ↓
+Thinking
+ ↓
+Researching
+ ↓
+Speaking
+ ↓
+Waiting
+```
+
+This allows the user to:
+
+* Clarify their startup
+* Correct assumptions
+* Ask follow-up questions
+* Change launch geography
+* Challenge the assessment
+* Explore "what if" scenarios
+
+Example:
+
+> "What if we remove the automated candidate ranking?"
+
+The system should be able to update the relevant startup context and reassess the situation.
+
+---
+
+# 🏗️ Architecture
+
+```mermaid
+flowchart TD
+    A[Founder] --> B[Next.js Voice UI]
+
+    B --> C[Voice Provider Abstraction]
+
+    C --> D[Gradium]
+    C --> E[Cartesia]
+    C --> F[Sarvam]
+
+    C --> G[Transcript]
+
+    G --> H[Conversation State]
+
+    H --> I[Startup Understanding]
+
+    I --> J[StartupProfile]
+
+    J --> K{Enough Context?}
+
+    K -->|No| L[Targeted Clarification]
+    L --> H
+
+    K -->|Yes| M[Regulatory Topic Mapping]
+
+    M --> N[Research Questions]
+
+    N --> O[Official EU Sources]
+
+    O --> P[Evidence Pack]
+
+    P --> Q[LLM Reasoning]
+
+    Q --> R[Structured Assessment]
+
+    R --> S[Validation]
+
+    S --> T[Visual Result]
+
+    S --> U[Voice Summary]
+
+    U --> A
+
+    T --> H
+```
+
+---
+
+# 🧠 LLM Architecture
+
+The LLM is used for tasks where natural-language understanding and reasoning are valuable.
+
+Examples:
+
+* Understanding startup descriptions
+* Extracting structured startup context
+* Identifying missing information
+* Generating targeted research questions
+* Reasoning over collected evidence
+* Explaining results in natural language
+
+The LLM is **not** treated as the source of truth for regulations.
 
 Conceptually:
 
+```ts
+const result = await llm.analyze({
+  startupProfile,
+  sources
+});
+```
+
+The provider can be changed without rewriting the product architecture.
+
+---
+
+# 💰 Cost Strategy
+
+The prototype is designed around a **$0-first development strategy**.
+
+The goal is to use available free tiers / credits efficiently while avoiding unnecessary infrastructure.
+
+### Planned approach
+
+**Voice**
+
+* Gradium — primary
+* Cartesia — optional
+* Sarvam — optional
+
+**LLM**
+
+* OpenRouter free models where appropriate
+* Groq free tier as a fallback / alternative
+
+**Research**
+
+* Curated authoritative EU sources
+* Lightweight targeted retrieval
+
+**Infrastructure**
+
+* Next.js API routes
+* Local development first
+* Optional Vercel deployment later
+
+The prototype does not depend on a paid Gemini plan.
+
+Free-tier availability and provider limits can change, so the implementation should not assume unlimited free inference.
+
+---
+
+# 🗂️ Project Structure
+
+```text
+canishipeu/
+│
+├── app/
+│   ├── page.tsx
+│   └── api/
+│       ├── transcribe/
+│       │   └── route.ts
+│       ├── understand/
+│       │   └── route.ts
+│       ├── research/
+│       │   └── route.ts
+│       ├── assess/
+│       │   └── route.ts
+│       └── speak/
+│           └── route.ts
+│
+├── components/
+│   ├── VoiceInterface.tsx
+│   ├── Conversation.tsx
+│   ├── StartupProfile.tsx
+│   ├── VerdictCard.tsx
+│   ├── Assessment.tsx
+│   ├── EUUSComparison.tsx
+│   └── Sources.tsx
+│
+├── lib/
+│   ├── gradium.ts
+│   ├── cartesia.ts
+│   ├── sarvam.ts
+│   ├── voice.ts
+│   ├── llm.ts
+│   ├── research.ts
+│   ├── regulations.ts
+│   ├── prompts.ts
+│   └── validation.ts
+│
+├── data/
+│   └── eu-sources.json
+│
+├── types/
+│   ├── startup.ts
+│   ├── assessment.ts
+│   └── voice.ts
+│
+├── public/
+│
+├── .env.local
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+---
+
+# 🔌 API Routes
+
+### `POST /api/transcribe`
+
+Converts recorded audio into text through the selected STT provider.
+
+```text
+Audio
+ ↓
+Voice Provider
+ ↓
+Transcript
+```
+
+---
+
+### `POST /api/understand`
+
+Turns conversation context into a structured `StartupProfile`.
+
+```text
+Conversation
+ ↓
+LLM
+ ↓
+StartupProfile
+```
+
+---
+
+### `POST /api/research`
+
+Determines relevant regulatory topics, generates research questions and retrieves supporting sources.
+
+```text
+StartupProfile
+ ↓
+Regulatory Mapping
+ ↓
+Research Questions
+ ↓
+Sources
+ ↓
+Evidence Pack
+```
+
+---
+
+### `POST /api/assess`
+
+Reasons over the startup profile and collected evidence to generate a structured assessment.
+
+```text
+StartupProfile + Evidence
+ ↓
+LLM
+ ↓
+Assessment
+ ↓
+Validation
+```
+
+---
+
+### `POST /api/speak`
+
+Converts the assistant's response into speech using the selected TTS provider.
+
+```text
+Response Text
+ ↓
+Voice Provider
+ ↓
+Audio
+```
+
+---
+
+# 🖥️ Interface
+
+## Homepage
+
+The initial interface is intentionally minimal.
+
+```text
+CAN I SHIP THIS
+IN EUROPE?
+
+Tell us what you're building.
+
+🎙️
+Start talking
+
+or type instead
+
+🇪🇺 EU     🇺🇸 US
+
+No legal jargon required.
+
+Prototype / informational tool. Not legal advice.
+```
+
+Possible positioning line:
+
+> **Tell me what you're building. I'll check the EU vs US reality.**
+
+---
+
+# 📊 Result Interface
+
+The detailed result should look roughly like:
+
 ```text
 ┌────────────────────────────────────────┐
-│                                        │
 │        CAN I SHIP THIS?                │
 │                                        │
 │               🟡                       │
 │             YELLOW                     │
 │                                        │
-│   Potentially launchable, but          │
-│   meaningful requirements apply.       │
-│                                        │
+│ Potentially launchable, but meaningful │
+│ requirements need attention.           │
 └────────────────────────────────────────┘
-
 
 WHY
 
@@ -933,1531 +897,450 @@ IMPORTANT DATES
 
 EU 🇪🇺                  US 🇺🇸
 
-...
+...                     ...
 
 
 SOURCES
 
-European Commission
-EUR-Lex
 ...
 ```
 
----
-
-# Evidence and Traceability
-
-A core design goal is that important conclusions should be traceable.
-
-For example:
-
-```text
-Assessment claim
-      ↓
-Evidence
-      ↓
-Official source
-```
-
-A founder should be able to see:
-
-> “Why are you telling me this?”
-
-and get:
-
-> “Because this source says…”
-
-This is much more valuable than simply displaying a confidence score.
+The interface should make the **reasoning visible without overwhelming the founder**.
 
 ---
 
-# Validation Layer
+# 🧪 Example
 
-After the LLM produces the assessment, the application should validate it.
+### Founder
 
-Checks can include:
+> "I'm building an AI recruiter that reads CVs, scores candidates and recommends who should get interviewed. We're planning to launch in Germany next year."
 
-```text
-✓ Required fields exist
-✓ Verdict is valid
-✓ Sources exist
-✓ Dates have valid structure
-✓ Uncertainty is disclosed where necessary
-✓ Output conforms to schema
-✓ Claims have supporting evidence where required
-```
+### CanIShipEU
 
-If the response fails validation, the system can:
+> "Does the AI make the final hiring decision, or does a human make the final decision?"
 
-1. repair the response
-2. retry the model
-3. fall back to a safer response
+### Founder
 
-The validation layer is part of the application rather than something we leave entirely to the model.
+> "A human makes the final decision."
 
----
+### System
 
-# EU vs US
+The system then investigates the relevant regulatory questions, gathers evidence and produces a structured assessment.
 
-A natural follow-up for founders is:
-
-> “What if I launch in the US?”
-
-CanIShipEU should support that question.
-
-The system should not make simplistic claims such as:
-
-> “Europe is impossible and America is easy.”
-
-Instead it should compare the relevant regulatory considerations.
-
-Example:
-
-```text
-EU 🇪🇺
-
-Relevant frameworks:
-...
-
-Main considerations:
-...
-
-Important dates:
-...
-
-
-US 🇺🇸
-
-Relevant considerations:
-...
-
-Jurisdictional differences:
-...
-
-Key difference:
-...
-```
-
-The comparison should be based on the particular startup rather than a generic EU-vs-US opinion.
-
----
-
-# Conversation After the Assessment
-
-The result should not terminate the experience.
-
-The founder should be able to continue asking questions.
-
-For example:
-
-> “Why yellow?”
-
-> “What if we remove automatic candidate ranking?”
-
-> “What if humans always make the final decision?”
-
-> “What if we launch in the US first?”
-
-> “Which requirement should we deal with first?”
-
-The system updates the relevant context and continues the conversation.
-
-This makes the assessment **interactive rather than static**.
-
----
-
-# Voice Architecture
-
-Gradium is the voice layer.
-
-Conceptually:
-
-```text
-Founder
-   ↓
-Microphone
-   ↓
-Gradium STT
-   ↓
-Transcript
-   ↓
-CanIShipEU reasoning
-   ↓
-Response text
-   ↓
-Gradium TTS
-   ↓
-Founder hears response
-```
-
-The voice layer should remain separate from the regulatory reasoning layer.
-
-This is important because the same internal system should eventually support:
-
-```text
-Voice
-Text
-PDF
-Website
-Pitch deck
-```
-
-without rebuilding the regulatory engine.
-
----
-
-# Future Input Architecture
-
-Eventually:
-
-```mermaid
-flowchart TD
-    A["🎙️ Voice"] --> E["Startup Understanding"]
-    B["⌨️ Text"] --> E
-    C["📄 PDF"] --> E
-    D["🌐 Website"] --> E
-    F["📑 Pitch Deck"] --> E
-
-    E --> G["StartupProfile"]
-
-    G --> H["Regulatory Research"]
-```
-
-For the first version:
-
-> **Voice + text fallback only.**
-
-PDF, pitch decks, and website analysis are intentionally deferred.
-
----
-
-# Complete Technical Architecture
-
-```mermaid
-flowchart TB
-
-    USER["👤 Founder"]
-
-    UI["Next.js Web App"]
-
-    STT["Gradium STT"]
-
-    UNDERSTANDING["Startup Understanding"]
-
-    PROFILE["StartupProfile"]
-
-    CLARIFY["Clarification Engine"]
-
-    MAP["Regulatory Topic Mapping"]
-
-    QUESTIONS["Research Questions"]
-
-    SEARCH["Research Layer"]
-
-    SOURCES["Official Sources"]
-
-    EVIDENCE["Evidence Package"]
-
-    LLM["LLM Reasoning"]
-
-    ASSESS["Structured Assessment"]
-
-    VALIDATE["Validation"]
-
-    TTS["Gradium TTS"]
-
-    RESULT["Visual + Voice Result"]
-
-    USER --> UI
-    UI --> STT
-    STT --> UNDERSTANDING
-
-    UNDERSTANDING --> PROFILE
-    PROFILE --> CLARIFY
-
-    CLARIFY -->|Missing information| TTS
-    TTS --> USER
-
-    CLARIFY -->|Enough information| MAP
-
-    MAP --> QUESTIONS
-    QUESTIONS --> SEARCH
-
-    SEARCH --> SOURCES
-    SOURCES --> EVIDENCE
-
-    PROFILE --> LLM
-    QUESTIONS --> LLM
-    EVIDENCE --> LLM
-
-    LLM --> ASSESS
-    ASSESS --> VALIDATE
-
-    VALIDATE --> RESULT
-    VALIDATE --> TTS
-
-    TTS --> RESULT
-    RESULT --> USER
-
-    USER --> UI
-```
-
----
-
-# Exact End-to-End Example
-
-Imagine Pratim is a founder in France.
-
-He opens CanIShipEU.
-
-The homepage says:
-
-```text
-CAN I SHIP THIS
-IN EUROPE?
-
-Tell us what you're building.
-
-🎙️ Start talking
-
-or type instead
-```
-
-Pratim presses the microphone.
-
-He says:
-
-> “I'm building an AI recruiting platform. Companies upload CVs, our AI scores candidates and recommends who should get interviewed. We're based in France and want to launch across Europe next year.”
-
----
-
-## Step 1 — Gradium STT
-
-Gradium converts his speech into text.
-
-```text
-I'm building an AI recruiting platform...
-```
-
----
-
-## Step 2 — Startup Understanding
-
-The LLM extracts:
-
-```text
-Product:
-AI recruitment platform
-
-Domain:
-Employment
-
-AI capability:
-Candidate scoring and recommendation
-
-Affected people:
-Job applicants
-
-Personal data:
-Likely yes
-
-Geography:
-France / EU
-
-Launch:
-Next year
-
-Decision role:
-Recommendation
-
-Human involvement:
-Unknown
-```
-
----
-
-## Step 3 — Missing Information
-
-The system determines that one answer could materially change the assessment.
-
-It asks:
-
-> “Does the AI make the final hiring decision, or does a human make the final decision?”
-
-Pratim:
-
-> “A human recruiter makes the final decision.”
-
-The profile is updated.
-
----
-
-## Step 4 — Regulatory Mapping
-
-The system identifies relevant topics:
-
-```text
-Employment AI
-Candidate evaluation
-AI classification
-Human oversight
-Transparency
-Data protection
-Implementation timeline
-```
-
----
-
-## Step 5 — Research Questions
-
-The system creates targeted research questions.
-
-```text
-What EU AI requirements are relevant
-to employment candidate evaluation?
-
-Could this use case fall into a
-regulated/high-risk category?
-
-What obligations could apply?
-
-What role does human oversight play?
-
-What transparency requirements are relevant?
-
-What requirements apply by the intended
-launch date?
-```
-
----
-
-## Step 6 — Research
-
-The research layer retrieves relevant material from authoritative sources.
-
-The system creates an evidence package.
-
-```text
-Question
-   ↓
-Official source
-   ↓
-Relevant evidence
-   ↓
-Supporting context
-```
-
----
-
-## Step 7 — LLM Reasoning
-
-The assessment model receives:
-
-```text
-Pratim's StartupProfile
-+
-Research Questions
-+
-Retrieved Evidence
-```
-
-It produces structured output.
-
----
-
-## Step 8 — Validation
-
-The application checks:
-
-```text
-✓ Verdict
-✓ Reasons
-✓ Requirements
-✓ Dates
-✓ Sources
-✓ Uncertainties
-```
-
----
-
-## Step 9 — Result
-
-Pratim sees:
+The result might identify areas such as:
 
 ```text
 🟡 YELLOW
 
-Potentially launchable,
-but meaningful regulatory
-requirements need attention.
-
-WHY
-
+Relevant areas:
 • Employment-related AI
 • Candidate evaluation
 • Personal data
+• Human oversight
 • EU deployment
 
-WHAT TO INVESTIGATE
-
-• Classification
-• Human oversight
-• Documentation
+Requires investigation:
+• AI classification
+• Applicable obligations
 • Transparency
+• Documentation
+• Human oversight
 • Data protection
 
-IMPORTANT DATES
+EU vs US:
+Different regulatory considerations apply.
 
-...
-
-SOURCES
-
-...
+Sources:
+Primary EU / national sources used for the assessment.
 ```
+
+The exact verdict should always depend on the evidence retrieved for the specific scenario.
 
 ---
 
-## Step 10 — Gradium Voice
-
-Instead of making Pratim read everything, Gradium summarizes:
-
-> “Based on what you've told me, I'd put this in yellow. The main reason is that your system is being used to evaluate job candidates. I've found several areas you should investigate before launching…”
-
----
-
-## Step 11 — Follow-up
-
-Pratim asks:
-
-> “What if we launch in the US first?”
-
-The system continues the conversation.
-
-It doesn't start from zero.
-
-It already knows:
-
-```text
-Product
-Domain
-AI function
-Users
-Affected people
-Data
-Current geography
-Planned launch
-Decision role
-```
-
-It can therefore investigate the new question using the existing profile.
-
----
-
-# Exact Demo Flow
-
-The entire public demo should ideally take around one minute.
-
-```text
-0:00
-"European founders keep asking one question..."
-
-0:05
-CAN I SHIP THIS IN EUROPE?
-
-0:08
-Founder speaks naturally.
-
-0:12
-Gradium transcribes.
-
-0:15
-Agent asks one smart clarification.
-
-0:20
-Founder answers.
-
-0:22
-"Researching relevant EU rules..."
-
-0:28
-Evidence appears.
-
-0:32
-🟡 YELLOW
-
-0:35
-System explains why.
-
-0:43
-Founder:
-"What if I launch in the US?"
-
-0:47
-EU 🇪🇺 vs US 🇺🇸
-
-0:55
-Voice answer.
-
-1:00
-"Built this as a prototype."
-```
-
-The important thing is to demonstrate the **workflow**, not every technical feature.
-
----
-
-# Homepage Concept
-
-The homepage should be extremely simple.
-
-```text
-             CAN I SHIP THIS
-                IN EUROPE?
-
-        Tell us what you're building.
-
-                    🎙️
-
-               Start talking
-
-             or type instead
-
-
-             🇪🇺 EU     🇺🇸 US
-
-
-     No legal jargon required.
-```
-
-The question itself is the hook.
-
-We should avoid opening with:
-
-> “AI-powered regulatory intelligence platform…”
-
-That describes technology rather than the user's problem.
-
----
-
-# Technology Stack
-
-## Frontend
-
-**Next.js**
-
-Used for:
-
-* application UI
-* routing
-* API routes
-* server-side orchestration
-
-## Language
-
-**TypeScript**
-
-Used across the project.
-
-## Styling
-
-**Tailwind CSS**
-
-## UI Components
-
-**shadcn/ui**
-
-## Speech-to-Text
-
-**Gradium**
-
-## Text-to-Speech
-
-**Gradium**
-
-## Voice Cloning
-
-**Gradium**
-
-Optional future/demo feature, not required for MVP.
-
-## LLM
-
-**OpenRouter free models**
-
-Used for:
-
-* startup understanding
-* clarification reasoning
-* regulatory topic mapping
-* assessment reasoning
-
-## LLM fallback
-
-**Groq free tier**
-
-Used as an alternative inference provider when appropriate.
-
-## Research
-
-**Official EU sources + lightweight search/retrieval layer**
-
-## Backend
-
-**Next.js API routes**
-
-## Database
-
-**None initially**
-
-## Authentication
-
-**None initially**
-
-## Payments
-
-**None**
-
-## Analytics
-
-**None initially**
-
-## Hosting
-
-**Local first**
-
-Optional future deployment once the prototype is stable.
-
----
-
-# Why the Stack Is Simple
-
-This is a prototype.
-
-The goal is to demonstrate the product and technical architecture, not build production infrastructure before the idea is validated.
-
-We therefore do not initially need:
-
-* Supabase
-* PostgreSQL
-* vector databases
-* Pinecone
-* pgvector
-* LangChain
-* LlamaIndex
-* microservices
-* authentication
-* payment systems
-* background workers
-* complex agent frameworks
-* a large regulatory crawler
-
-The first version should be understandable as:
-
-```text
-Next.js
-   +
-Gradium
-   +
-LLM
-   +
-Research
-   +
-Structured reasoning
-```
-
----
-
-# LLM Provider Abstraction
-
-The rest of the application should not depend directly on OpenRouter or Groq.
-
-Instead:
-
-```typescript
-const result = await llm.analyze({
-  startupProfile,
-  researchQuestions,
-  evidence
-});
-```
-
-The adapter can internally choose:
-
-```text
-LLM Adapter
-   ├── OpenRouter
-   └── Groq
-```
-
-This allows us to test different models without rewriting the application.
-
----
-
-# Cost Strategy
-
-The prototype should be built with a **$0-first strategy**.
-
-Use:
-
-* Gradium free credits
-* free LLM inference
-* free-tier services where possible
-* local development
-* limited research
-* no public unlimited API
-
-We do not need to deploy the application publicly just to demonstrate it.
-
-For the initial X demo, running locally is completely acceptable.
-
-If the prototype is later made public, we should add controls such as:
-
-* rate limiting
-* authentication or access control
-* usage limits
-* controlled API access
-
-This prevents strangers from consuming free-tier resources indefinitely.
-
----
-
-# Project Structure
-
-```text
-canishipeu/
-│
-├── app/
-│   ├── page.tsx
-│   │
-│   └── api/
-│       ├── transcribe/
-│       │   └── route.ts
-│       │
-│       ├── understand/
-│       │   └── route.ts
-│       │
-│       ├── research/
-│       │   └── route.ts
-│       │
-│       ├── assess/
-│       │   └── route.ts
-│       │
-│       └── speak/
-│           └── route.ts
-│
-├── components/
-│   ├── VoiceInterface.tsx
-│   ├── Conversation.tsx
-│   ├── StartupProfile.tsx
-│   ├── VerdictCard.tsx
-│   ├── Assessment.tsx
-│   ├── EUUSComparison.tsx
-│   └── Sources.tsx
-│
-├── lib/
-│   ├── gradium.ts
-│   ├── llm.ts
-│   ├── research.ts
-│   ├── regulations.ts
-│   ├── prompts.ts
-│   └── validation.ts
-│
-├── data/
-│   └── eu-sources.json
-│
-├── types/
-│   ├── startup.ts
-│   └── assessment.ts
-│
-├── public/
-│
-├── .env.local
-├── package.json
-├── tsconfig.json
-└── README.md
-```
-
----
-
-# API Architecture
-
-## `/api/transcribe`
-
-```text
-Audio
- ↓
-Gradium STT
- ↓
-Transcript
-```
-
-## `/api/understand`
-
-```text
-Conversation
- ↓
-LLM
- ↓
-StartupProfile
-```
-
-## `/api/research`
-
-```text
-StartupProfile
- ↓
-Regulatory topics
- ↓
-Research questions
- ↓
-Source retrieval
- ↓
-Evidence package
-```
-
-## `/api/assess`
-
-```text
-StartupProfile
-+
-Research questions
-+
-Evidence
- ↓
-LLM
- ↓
-Structured Assessment
-```
-
-## `/api/speak`
-
-```text
-Response text
- ↓
-Gradium TTS
- ↓
-Audio
-```
-
----
-
-# Full API/Data Flow
-
-```mermaid
-sequenceDiagram
-
-    participant F as Founder
-    participant UI as Next.js
-    participant G as Gradium
-    participant L as LLM
-    participant R as Research
-
-    F->>UI: Speak startup idea
-    UI->>G: Audio
-    G-->>UI: Transcript
-
-    UI->>L: Understand startup
-    L-->>UI: StartupProfile
-
-    UI->>L: Identify missing information
-
-    alt Missing information
-        L-->>UI: Clarifying question
-        UI->>G: Question
-        G-->>F: Spoken question
-        F->>UI: Answer
-    else Enough information
-        UI->>R: Research questions
-        R-->>UI: Evidence package
-
-        UI->>L: Profile + questions + evidence
-        L-->>UI: Structured assessment
-
-        UI->>UI: Validate assessment
-
-        UI->>G: Response text
-        G-->>UI: Audio
-        UI-->>F: Result + voice
-    end
-```
-
----
-
-# Regulatory Scope for the Prototype
-
-We should deliberately avoid claiming:
-
-> “CanIShipEU understands all EU regulation.”
-
-That is far too broad.
-
-The prototype should initially focus on a defined collection of common startup scenarios.
-
-Potential initial scenarios:
-
-```text
-AI recruitment
-Medical AI
-Biometrics
-Surveillance
-Credit scoring
-Education AI
-Content generation
-Industrial/computer vision
-```
-
-Each scenario can have:
-
-* known regulatory topics
-* curated official sources
-* useful research queries
-* expected clarification questions
-* test cases
-
-This makes the prototype much more reliable.
-
----
-
-# Curated Source Layer
-
-The initial project can maintain:
-
-```text
-data/eu-sources.json
-```
-
-This can contain known authoritative sources for supported scenarios.
-
-Conceptually:
-
-```json
-{
-  "topic": "employment_ai",
-  "sources": [
-    {
-      "title": "Official source",
-      "url": "...",
-      "authority": "European Commission",
-      "topics": [
-        "employment",
-        "candidate evaluation"
-      ]
-    }
-  ]
-}
-```
-
-The curated source layer can be combined with targeted retrieval.
-
-This gives the prototype a safer foundation than relying entirely on arbitrary web search.
-
----
-
-# Prototype Safety
-
-CanIShipEU should clearly state:
+# 🛡️ Safety & Reliability Principles
+
+CanIShipEU is an **informational research prototype**, not a law firm or legal advice service.
+
+The system should:
+
+* Prefer authoritative sources
+* Show supporting sources
+* Separate evidence from interpretation
+* Communicate uncertainty
+* Avoid inventing regulations
+* Avoid inventing legal dates
+* Avoid unsupported legal conclusions
+* Validate structured LLM output
+* Clearly distinguish facts from assumptions
+* Encourage professional legal review for consequential decisions
+
+Every assessment should display:
 
 > **Prototype / informational tool — not legal advice.**
 
-The application should avoid absolute legal claims.
+---
 
-Instead of:
+# 🚫 Deliberate Scope Limits
 
-> “You are legally allowed to launch.”
+CanIShipEU is intentionally **not** trying to become a complete EU legal platform.
 
-Use:
+The prototype does not include:
 
-> “Based on the sources reviewed, no major restriction was identified, but you should verify the requirements applicable to your specific deployment.”
+* ❌ User accounts
+* ❌ Authentication
+* ❌ Payments
+* ❌ Database
+* ❌ Admin dashboard
+* ❌ Mobile app
+* ❌ Browser extension
+* ❌ PDF upload
+* ❌ Full website crawling
+* ❌ Complete EU law database
+* ❌ Large-scale vector database
+* ❌ LangChain / LlamaIndex dependency
+* ❌ Microservices
+* ❌ Production monitoring
+* ❌ Public unlimited API
+* ❌ Voice cloning as a core feature
+* ❌ Full multilingual expansion
 
-Instead of:
-
-> “This is illegal.”
-
-Use:
-
-> “This appears to raise a major restriction or prohibition that should be reviewed before launch.”
-
-The product should be transparent about uncertainty.
+The objective is to demonstrate the **core product loop extremely well**.
 
 ---
 
-# What We Are NOT Building
+# 🚀 Future Possibilities
 
-The first version is not:
+If the core concept proves useful, CanIShipEU could evolve into:
 
-* a replacement for lawyers
-* a legal certification system
-* a complete EU legal database
-* a guaranteed compliance checker
-* a generic AI chatbot
-* a ChatGPT clone
-* a general-purpose voice assistant
-* a production compliance SaaS
-* an enterprise legal platform
-* a public unlimited API
+### Regulatory monitoring
 
-The prototype exists to prove the **workflow and product concept**.
+> "Tell me when the rules affecting my startup change."
+
+### Founder compliance workspace
+
+Track:
+
+* Requirements
+* Evidence
+* Open questions
+* Important dates
+* Regulatory changes
+
+### More jurisdictions
+
+Expand beyond:
+
+```text
+EU 🇪🇺
+US 🇺🇸
+```
+
+into additional markets.
+
+### Multilingual founder conversations
+
+Allow founders to explain products in more languages while preserving the same structured regulatory workflow.
+
+### Voice provider benchmarking
+
+Expose an internal developer mode for comparing:
+
+```text
+Gradium
+Cartesia
+Sarvam
+```
+
+across latency, transcription quality and speech generation.
+
+### Deeper regulatory domains
+
+Gradually expand the scenario library as the evidence and validation layer becomes more reliable.
 
 ---
 
-# What Makes the Project Technically Interesting
+# 🧭 Product Principle
 
-There are several layers worth demonstrating.
+CanIShipEU is not fundamentally a voice app.
 
-## Voice
+It is not fundamentally a chatbot.
 
-Gradium handles the natural interaction.
+It is not fundamentally a search engine.
 
-## Startup understanding
+It is a **startup-aware regulatory investigation system with voice as the interface**.
 
-Natural founder speech becomes a structured `StartupProfile`.
+The key loop is:
 
-## Clarification
+```text
+Understand the founder
+        ↓
+Understand the product
+        ↓
+Understand the context
+        ↓
+Find the relevant questions
+        ↓
+Find the relevant evidence
+        ↓
+Reason over the evidence
+        ↓
+Explain the implications
+```
 
-The agent determines what it needs to know rather than requiring the founder to fill out a questionnaire.
-
-## Regulatory mapping
-
-The system determines which regulatory areas are relevant.
-
-## Targeted research
-
-The system generates research questions rather than performing a generic search.
-
-## Evidence
-
-The LLM receives relevant source material rather than relying only on memory.
-
-## Structured reasoning
-
-The result has a predictable schema.
-
-## Validation
-
-The application checks the generated assessment.
-
-## Conversational follow-up
-
-The founder can challenge or modify the assumptions.
-
-This gives us a much stronger technical story than:
-
-> “I connected a microphone to an LLM.”
+Voice simply makes that interaction feel natural.
 
 ---
 
-# The Real Product Differentiation
+# 🎯 MVP Success Criteria
 
-The key distinction is:
+The prototype is successful if a founder can say:
 
-```text
-GENERAL AI
+> "I'm building an AI recruitment platform in France. It scores candidates and recommends who should be interviewed. Humans make the final decision."
 
-Question
-   ↓
-Answer
-```
+…and the system can:
 
-versus:
-
-```text
-CANISHIPEU
-
-Founder
-   ↓
-Interview
-   ↓
-StartupProfile
-   ↓
-Regulatory mapping
-   ↓
-Research questions
-   ↓
-Evidence
-   ↓
-Assessment
-   ↓
-Explanation
-   ↓
-Follow-up
-```
-
-We are not claiming:
-
-> “Our model is smarter.”
-
-We are building:
-
-> **A specialized workflow that helps a founder figure out which questions need answering in the first place.**
+1. Understand the product.
+2. Identify the employment context.
+3. Identify candidate evaluation as relevant.
+4. Understand the role of human decision-making.
+5. Ask useful clarification questions.
+6. Identify relevant regulatory topics.
+7. Research authoritative sources.
+8. Produce a structured evidence-backed assessment.
+9. Explain a GREEN / YELLOW / RED result.
+10. Show why the result was reached.
+11. Show supporting sources.
+12. Compare relevant EU and US considerations.
+13. Explain the result through voice.
+14. Continue the conversation with follow-up questions.
+15. Reassess when important assumptions change.
 
 ---
 
-# Development Plan
+# 📣 Demo Positioning
 
-We should build the project in the following order.
+The product should be demonstrated through the founder's question rather than through a technical feature checklist.
 
-## Phase 1 — Application foundation
+### The hook
 
-Build:
+> **Can I ship this in Europe?**
 
-* Next.js
-* TypeScript
-* Tailwind
-* shadcn/ui
-* basic homepage
-* microphone interface
-* text fallback
+### The interaction
 
----
+> "Just tell me what you're building."
 
-## Phase 2 — Gradium
+### The reveal
 
-First prove:
+The system doesn't immediately answer.
 
-```text
-Microphone
-   ↓
-Gradium STT
-   ↓
-Transcript
-```
+It **understands first**.
 
-Then:
+Then it asks the one or two questions that actually matter.
 
-```text
-Text
-   ↓
-Gradium TTS
-   ↓
-Audio
-```
+Then it researches.
 
-Do not move forward until both directions work.
+Then it explains.
+
+That progression is the product.
 
 ---
 
-## Phase 3 — Startup Understanding
+# 🎥 Demo Story
 
-Implement:
+A short demo can follow this narrative:
 
 ```text
-Transcript
-   ↓
-LLM
-   ↓
-StartupProfile
+Founder has an idea
+        ↓
+"Can I ship this in Europe?"
+        ↓
+Founder talks naturally
+        ↓
+AI understands the startup
+        ↓
+AI asks a smart clarification
+        ↓
+Research begins
+        ↓
+Evidence appears
+        ↓
+GREEN / YELLOW / RED
+        ↓
+Why?
+        ↓
+EU vs US
+        ↓
+Founder asks a follow-up
+        ↓
+Voice answers
 ```
 
-Test with multiple different startup ideas.
+The demo should make the audience think:
+
+> **"I would actually use that before launching my startup."**
 
 ---
 
-## Phase 4 — Clarification Engine
+# 🌍 The Bigger Idea
 
-Implement:
+Europe doesn't have a shortage of regulations.
+
+Founders have a shortage of **clarity**.
+
+CanIShipEU explores whether AI can sit between:
 
 ```text
-StartupProfile
-   ↓
-Missing critical information?
-   ↓
-Ask question
-   ↓
-Update profile
+Complex regulation
+        +
+Messy startup context
+        ↓
+Clear founder decision
 ```
 
-This is one of the core features.
+The long-term opportunity is not simply:
+
+> "Ask AI about regulation."
+
+It is:
+
+> **"Tell AI what you're building, and let it figure out what you need to know before you ship."**
 
 ---
 
-## Phase 5 — Regulatory Mapping
+# 🛠️ Tech Stack
 
-Implement:
-
-```text
-StartupProfile
-   ↓
-Relevant topics
-   ↓
-Research questions
-```
-
-Initially support a limited number of scenarios.
-
----
-
-## Phase 6 — Research
-
-Implement:
-
-```text
-Research questions
-   ↓
-Official sources
-   ↓
-Evidence package
-```
+| Layer                       | Technology                                  |
+| --------------------------- | ------------------------------------------- |
+| Framework                   | Next.js                                     |
+| Language                    | TypeScript                                  |
+| UI                          | Tailwind CSS                                |
+| Components                  | shadcn/ui                                   |
+| Primary Voice               | Gradium                                     |
+| Optional Voice              | Cartesia                                    |
+| Optional Multilingual Voice | Sarvam                                      |
+| LLM                         | OpenRouter / Groq                           |
+| Research                    | Official EU sources + lightweight retrieval |
+| Backend                     | Next.js API Routes                          |
+| Database                    | None initially                              |
+| Deployment                  | Local first / optional Vercel               |
 
 ---
 
-## Phase 7 — Assessment
+# ⚙️ Environment Variables
 
-Implement:
+Create `.env.local`:
 
-```text
-StartupProfile
-+
-Research questions
-+
-Evidence
- ↓
-LLM
- ↓
-Assessment
+```env
+GRADIUM_API_KEY=
+CARTESIA_API_KEY=
+SARVAM_API_KEY=
+
+OPENROUTER_API_KEY=
+GROQ_API_KEY=
 ```
 
-Then add validation.
+The application should use provider abstractions so individual providers can be enabled or disabled without changing the core product logic.
+
+For example:
+
+```env
+VOICE_PROVIDER=gradium
+```
+
+The primary demo path should work with Gradium before optional provider integrations are added.
 
 ---
 
-## Phase 8 — Result UI
+# 🚀 Getting Started
 
-Build:
+## 1. Clone the repository
 
-* verdict
-* summary
-* why
-* requirements
-* important dates
-* EU vs US
-* uncertainties
-* sources
-* startup profile
+```bash
+git clone <your-repository-url>
+cd canishipeu
+```
+
+## 2. Install dependencies
+
+```bash
+npm install
+```
+
+## 3. Configure environment variables
+
+Create:
+
+```text
+.env.local
+```
+
+and add the required API keys.
+
+## 4. Start the development server
+
+```bash
+npm run dev
+```
+
+Open:
+
+```text
+http://localhost:3000
+```
 
 ---
 
-## Phase 9 — Conversational Voice
+# 🔬 Development Philosophy
 
-Connect:
+CanIShipEU follows a few simple engineering principles:
 
-```text
-Assessment
-   ↓
-Response generation
-   ↓
-Gradium TTS
-```
+### Keep the workflow explicit
 
-Then support follow-up questions.
+Prefer understandable pipelines over framework-heavy abstractions.
 
----
+### Use the LLM where it adds value
 
-## Phase 10 — Demo Polish
+Natural language understanding and reasoning belong with the model.
 
-Only after the workflow works:
+Deterministic decisions should remain deterministic where possible.
 
-* microphone animations
-* research animation
-* transitions
-* loading states
-* voice states
-* visual hierarchy
-* polished result card
-* demo-specific scenario
+### Evidence before conclusions
 
----
+Regulatory conclusions should be grounded in retrieved sources.
 
-# MVP Definition
+### Provider abstraction
 
-The MVP is complete when a founder can:
+Voice and LLM providers should be replaceable.
 
-1. Speak their startup idea.
-2. Have the system understand the startup.
-3. Answer a targeted clarification question.
-4. Have the system identify relevant regulatory topics.
-5. Retrieve relevant authoritative information.
-6. Receive a structured assessment.
-7. See the evidence/sources.
-8. Hear the explanation through Gradium.
-9. Ask a follow-up question.
-10. Ask how the situation compares with the US.
+### Structured outputs
 
-That is enough.
+Important model outputs should be validated before reaching the UI.
 
-Everything else is optional.
+### Small infrastructure
+
+A prototype should not need a distributed architecture to demonstrate a good product idea.
 
 ---
 
-# MVP Success Test
+# 📌 Disclaimer
 
-We should be able to give the system:
+**CanIShipEU is a prototype for informational and research purposes only. It does not provide legal advice, legal opinions, or guarantees of regulatory compliance.**
 
-> “I'm building an AI recruiter in France. It reads CVs, scores candidates and recommends who should be interviewed. Humans make the final decision. We're launching next year.”
+Regulatory requirements can depend on the exact product, implementation, jurisdiction, sector, data practices, deployment model and applicable dates.
 
-And get something like:
-
-```text
-UNDERSTOOD
-
-Employment AI
-Candidate evaluation
-Recommendation
-Human decision-maker
-Personal data
-France
-EU
-Future launch
-```
-
-Then:
-
-```text
-TARGETED QUESTION
-
-Which countries are you initially
-planning to deploy in?
-```
-
-Then:
-
-```text
-RESEARCH
-
-Relevant regulatory topics identified.
-Official sources retrieved.
-```
-
-Then:
-
-```text
-ASSESSMENT
-
-🟡 YELLOW
-
-Main reasons:
-...
-
-Things to investigate:
-...
-
-Important dates:
-...
-
-EU vs US:
-...
-
-Sources:
-...
-```
-
-Then the founder can say:
-
-> “Why yellow?”
-
-and continue the conversation.
-
-If that experience works reliably, **we have successfully built the prototype.**
+Always verify important conclusions against current official sources and seek qualified legal advice where appropriate.
 
 ---
 
-# Future Extensions
+# ⭐ The One-Liner
 
-Once the core system works, the architecture can expand.
-
-## Pitch deck
-
-```text
-Pitch deck
-   ↓
-Extract product information
-   ↓
-StartupProfile
-   ↓
-Research
-```
-
-## Website
-
-```text
-Website
-   ↓
-Understand product
-   ↓
-StartupProfile
-   ↓
-Research
-```
-
-## Product documentation
-
-```text
-Documentation
-   ↓
-Product capabilities
-   ↓
-StartupProfile
-   ↓
-Regulatory assessment
-```
-
-## Monitoring
-
-Eventually:
-
-> “Tell me if something changes that affects my product.”
-
-This could evolve the prototype toward a regulatory monitoring product.
-
-But none of this belongs in the first build.
+> **CanIShipEU is a voice-first AI assistant that helps startup founders understand whether and how they can launch their products in Europe.**
 
 ---
 
-# Final Product Definition
+## Built around one question:
 
-CanIShipEU is a **voice-first regulatory research assistant for startup founders**.
+# 🇪🇺 Can I ship this in Europe?
 
-A founder doesn't need to know which regulation applies.
-
-They don't need to understand legal terminology.
-
-They don't need to fill out a long questionnaire.
-
-They simply explain:
-
-> **“Here's what we're building.”**
-
-CanIShipEU then:
-
-```text
-LISTEN
-   ↓
-UNDERSTAND
-   ↓
-CLARIFY
-   ↓
-MAP
-   ↓
-RESEARCH
-   ↓
-COLLECT EVIDENCE
-   ↓
-REASON
-   ↓
-VALIDATE
-   ↓
-ASSESS
-   ↓
-EXPLAIN
-   ↓
-CONTINUE
-```
-
-The central product promise is:
-
-> ### **Before you build it, ask: Can I ship this in Europe?**
-
-And the central technical idea is:
-
-> ### **Don't build an AI that simply answers regulatory questions. Build an AI that figures out which regulatory questions a founder needs answered.**
-
-That is the blueprint we have followed to build CanIShipEU.
+**Just ask.**
