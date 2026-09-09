@@ -22,19 +22,22 @@ They think:
 
 or:
 
-> "We're building an AI medical assistant. What do we need before launching in Europe?"
+> "We're building an AI product for hiring. What do we need before launching in France?"
 
 The problem isn't simply finding regulations.
 
 The harder problem is figuring out:
 
 * Which regulations are actually relevant?
-* What facts about the startup matter?
+* Which facts about the startup matter?
 * What questions should the founder answer?
+* Is the company acting as a provider, deployer, or both?
 * Which sources are authoritative?
+* Are those sources current?
 * Is the retrieved evidence actually sufficient?
 * What requirements might apply?
 * What remains uncertain?
+* What facts would change the assessment?
 
 CanIShipEU is designed around that investigation problem.
 
@@ -46,63 +49,34 @@ Instead of forcing founders through a regulatory questionnaire, CanIShipEU start
 
 ---
 
-# 🎙️ The Core Experience
+# 🎯 V1 Focus: Employment AI
 
-A founder can simply say:
+CanIShipEU intentionally starts narrow.
 
-> "I'm building an AI recruitment platform that reads CVs, scores candidates and recommends who should get interviewed. We're planning to launch in France next year."
+The first deeply validated scenario is:
 
-CanIShipEU might ask:
+> **AI systems used in recruitment and employment.**
 
-> "Does the AI make the final hiring decision, or does a human make the final decision?"
+For example:
 
-The founder answers:
+> "I'm building an AI recruiter that reads CVs, scores candidates and recommends who should get interviewed. We're planning to launch in France next year."
 
-> "A human makes the final decision."
+This is deliberately chosen because employment AI contains the exact ambiguity CanIShipEU is designed to solve:
 
-CanIShipEU then uses that additional context to determine what should actually be researched.
+* What does the AI actually do?
+* Who uses it?
+* Who is affected?
+* Does it assist, recommend, or decide?
+* Is there human involvement?
+* Who is the provider?
+* Who is the deployer?
+* What data is processed?
+* Which jurisdiction matters?
+* Which requirements apply by the intended launch date?
 
-The result is not just an AI-generated paragraph.
+The objective is not to claim coverage of every possible AI system.
 
-It is a structured investigation:
-
-```text
-Founder
-   ↓
-Natural language description
-   ↓
-Understand the startup
-   ↓
-Build StartupProfile
-   ↓
-Identify missing information
-   ↓
-Ask targeted clarification questions
-   ↓
-Map relevant regulatory topics
-   ↓
-Generate research questions
-   ↓
-Expand research queries
-   ↓
-Retrieve authoritative sources
-   ↓
-Fuse + rank evidence
-   ↓
-Check evidence sufficiency
-   ↓
-Research missing gaps when necessary
-   ↓
-Build evidence package
-   ↓
-Reason over evidence
-   ↓
-Validate structured assessment
-   ↓
-Explain the result
-   ↓
-Continue the conversation
-```
+The objective is to make **one difficult founder scenario extremely good** before expanding.
 
 ---
 
@@ -162,6 +136,84 @@ The goal is to build a better **product workflow around the model**.
 
 ---
 
+# 🗣️ The Core Experience
+
+A founder can simply say:
+
+> "I'm building an AI recruitment platform that reads CVs, scores candidates and recommends who should get interviewed. We're planning to launch in France next year."
+
+CanIShipEU might ask:
+
+> "Does the AI make the final hiring decision, or does a human make the final decision?"
+
+The founder answers:
+
+> "A human makes the final decision."
+
+CanIShipEU does **not** automatically treat that answer as proof that the system is low-risk.
+
+Instead, the new information becomes another input to the investigation.
+
+The system may continue with questions such as:
+
+> "Are employers using your system to evaluate or rank candidates?"
+
+or:
+
+> "Are you providing the AI system to employers, or are you also using it yourself to make hiring decisions?"
+
+The result is a structured investigation rather than a chatbot response.
+
+---
+
+# 🔄 End-to-End Workflow
+
+```text
+Founder
+   ↓
+Natural language description
+   ↓
+Understand the startup
+   ↓
+Build StartupProfile
+   ↓
+Identify material uncertainty
+   ↓
+Ask targeted clarification
+   ↓
+Determine provider / deployer role
+   ↓
+Map relevant regulatory topics
+   ↓
+Generate research questions
+   ↓
+Translate / expand queries
+   ↓
+Retrieve authoritative sources
+   ↓
+Fuse + rank evidence
+   ↓
+Check evidence sufficiency
+   ↓
+Research missing gaps if necessary
+   ↓
+Build EvidencePack
+   ↓
+Reason only over supplied evidence
+   ↓
+Validate assessment
+   ↓
+Map claims → evidence
+   ↓
+Generate founder brief
+   ↓
+Explain through text + voice
+   ↓
+Follow-up / reassessment
+```
+
+---
+
 # 👤 Who Is It For?
 
 CanIShipEU is primarily designed for:
@@ -173,37 +225,17 @@ CanIShipEU is primarily designed for:
 * Pre-launch companies
 * Developers building products for the EU market
 * Non-EU founders considering an EU launch
+* US founders evaluating Europe as a market
 
-Especially founders who are asking:
+Especially founders asking:
 
 > **"Can I actually launch this in Europe?"**
-
----
-
-# 🎯 Initial Use Cases
-
-The prototype intentionally focuses on a limited set of scenarios rather than attempting to cover every EU regulation.
-
-Initial scenarios include:
-
-* 🤖 AI recruitment
-* 🏥 Medical / health AI
-* 👁️ Biometrics
-* 📹 Surveillance systems
-* 💳 Credit and financial decision systems
-* 🎓 Education AI
-* ✍️ Content-generation systems
-* 🏭 Industrial / computer vision systems
-
-The regulatory coverage can expand later as the research layer becomes more mature.
 
 ---
 
 # 🧩 Startup Understanding
 
 Before researching regulation, CanIShipEU creates a structured representation of the startup.
-
-Example:
 
 ```ts
 type StartupProfile = {
@@ -227,6 +259,12 @@ type StartupProfile = {
   usesSensitiveData?: boolean | "unknown";
   usesBiometrics?: boolean | "unknown";
 
+  role?:
+    | "provider"
+    | "deployer"
+    | "provider_and_deployer"
+    | "unknown";
+
   geography?: string[];
   plannedLaunch?: string;
 
@@ -248,12 +286,15 @@ Example:
   "uses_personal_data": true,
   "uses_sensitive_data": "unknown",
   "uses_biometrics": false,
+  "role": "provider",
   "geography": ["France", "European Union"],
   "planned_launch": "2027"
 }
 ```
 
-This structured representation becomes the foundation for the rest of the investigation.
+The profile is not intended to be a legal classification by itself.
+
+It is the structured context used to determine **what needs to be investigated**.
 
 ---
 
@@ -261,12 +302,16 @@ This structured representation becomes the foundation for the rest of the invest
 
 CanIShipEU does not ask founders to complete a giant regulatory questionnaire.
 
-Instead, it asks questions only when the answer could materially change the assessment.
+It asks questions only when the answer could materially change the research or assessment.
 
 Examples:
 
 * Does the AI make the final decision?
-* Does a human review the AI's output?
+* Does the AI rank or evaluate candidates?
+* Does a human review the AI output?
+* Who actually uses the system?
+* Are you providing the system to another organization?
+* Are you also using the system internally?
 * Does the system process personal data?
 * Does it process sensitive data?
 * Does it use biometric information?
@@ -283,7 +328,7 @@ Current StartupProfile
      ↓
 Detect uncertainty
      ↓
-Does the uncertainty matter?
+Does the uncertainty materially matter?
      │
    ┌─┴─┐
    │   │
@@ -301,6 +346,45 @@ The objective is to collect the **minimum context required for useful research**
 
 ---
 
+# 🏢 Provider vs Deployer
+
+A critical part of the prototype is distinguishing between the role a company plays in relation to an AI system.
+
+A founder saying:
+
+> "We're building an AI recruiter"
+
+does not automatically tell us whether the company is:
+
+```text
+Provider
+Deployer
+Provider + Deployer
+Unknown
+```
+
+CanIShipEU therefore treats this as a first-class part of the startup context.
+
+Example:
+
+```text
+Startup
+   ↓
+How is the AI system used?
+   ↓
+Who develops / places it on the market?
+   ↓
+Who actually deploys / uses it?
+   ↓
+Provider / Deployer hypothesis
+```
+
+The system should not silently collapse different obligations into one generic "startup responsibility."
+
+If the role is uncertain, that uncertainty should remain visible.
+
+---
+
 # ⚖️ Regulatory Mapping
 
 Once enough context exists, CanIShipEU identifies relevant regulatory areas.
@@ -311,8 +395,8 @@ For example:
 
 ```text
 IF domain = employment
-AND AI capability = candidate evaluation
-→ flag employment-related AI research
+AND AI capability involves candidate evaluation
+→ flag employment-AI research
 
 IF usesBiometrics = true
 → flag biometric AI research
@@ -321,7 +405,7 @@ IF geography includes EU
 → include EU regulatory framework
 
 IF plannedLaunch is in the future
-→ consider rules applicable by launch date
+→ research requirements and dates relevant to the launch period
 ```
 
 The exact mapping rules can evolve as regulatory frameworks and guidance change.
@@ -333,6 +417,60 @@ The architectural principle is:
 The mapping layer identifies **what needs investigation**.
 
 It does not pretend to be the legal authority.
+
+---
+
+# 📅 Time-Aware Research
+
+Regulatory research is not only about:
+
+> "What does the law say?"
+
+It is also about:
+
+> **"What applies when this founder plans to launch?"**
+
+CanIShipEU therefore treats dates as first-class research data.
+
+Each important source can carry metadata such as:
+
+```ts
+type SourceMetadata = {
+  sourceId: string;
+  title: string;
+  url: string;
+
+  authority: string;
+
+  publishedAt?: string;
+  updatedAt?: string;
+
+  effectiveDate?: string;
+  jurisdiction?: string;
+
+  version?: string;
+};
+```
+
+The UI should make the research state explicit:
+
+```text
+ASSESSMENT AS OF
+September 2026
+```
+
+or another appropriate date.
+
+The system should distinguish between:
+
+```text
+Publication date
+Update date
+Effective date
+Planned applicability date
+```
+
+A stale source should not silently look equivalent to a current primary source.
 
 ---
 
@@ -352,21 +490,24 @@ CanIShipEU turns that into a research plan.
 
 ### Standalone rewrite
 
-> What EU regulatory requirements apply to AI systems used to evaluate job candidates?
+> What EU regulatory requirements may apply to an AI system used to evaluate job candidates?
 
 ### Step-back question
 
-> How does EU law regulate AI systems used in employment and decision-making?
+> How does EU law regulate AI systems used in employment and candidate evaluation?
 
 ### Subquestions
 
-* Does candidate evaluation fall into a regulated AI category?
-* What obligations may apply?
-* Does human oversight affect the assessment?
+* Does the described use case fall within an employment-related regulated category?
+* What role does candidate evaluation play?
+* Does human oversight change the relevant obligations?
+* What obligations may apply to the provider?
+* What obligations may apply to the deployer?
 * What transparency requirements matter?
 * What documentation requirements matter?
 * What data protection considerations matter?
 * Which requirements apply by the planned launch date?
+* What evidence is still missing?
 
 ### Exact keyword queries
 
@@ -376,15 +517,17 @@ candidate evaluation
 recruitment
 high-risk
 human oversight
+provider
+deployer
 ```
 
 The original founder question is **always preserved** alongside generated queries.
 
-This matters because a poor rewrite should never be allowed to silently replace what the founder actually asked.
+This matters because a poor rewrite should never silently replace what the founder actually asked.
 
 ---
 
-# 🔬 Advanced Research Pipeline
+# 🔬 Advanced Evidence Research Pipeline
 
 The research layer is designed as a multi-stage retrieval and verification pipeline rather than a single search call.
 
@@ -393,9 +536,9 @@ Research Question
        ↓
 Query Translation
        ↓
-┌──────┼─────────┬────────────┐
-↓      ↓         ↓            ↓
-Original Rewrite Step-back  Subquestions
+┌──────┼──────────┬────────────┐
+↓      ↓          ↓            ↓
+Original Rewrite  Step-back   Subquestions
                          + keyword queries
        ↓
 Hybrid Retrieval
@@ -404,22 +547,21 @@ Semantic + Keyword Results
        ↓
 Reciprocal Rank Fusion
        ↓
-Reranking
+Optional Reranking
        ↓
-Top Evidence
+Candidate Evidence
        ↓
 Evidence Sufficiency Check
        ↓
 ┌──────┴──────┐
 │             │
-Insufficient  Sufficient
+Weak          Sufficient
 │             │
 ↓             ↓
-Find Gap      Evidence Pack
+Identify Gap  EvidencePack
 │             │
 ↓             │
-New Research  │
-Query         │
+Refined Query │
 │             │
 └──────┬──────┘
        ↓
@@ -430,7 +572,9 @@ Best Evidence Round
 Grounded Assessment
 ```
 
-The goal is to make the research process **adaptive**, rather than assuming the first retrieval was good enough.
+The goal is:
+
+> **Research until supported, not until something can be said.**
 
 ---
 
@@ -450,17 +594,17 @@ This searches by meaning.
 
 Useful for exact terminology such as:
 
-> "Article 6"
+```text
+Article 6
+Annex III
+employment
+candidate evaluation
+human oversight
+provider
+deployer
+```
 
-or:
-
-> "candidate evaluation"
-
-or:
-
-> "high-risk"
-
-These searches are sensitive to exact words and phrases.
+These searches are sensitive to exact terms and phrases.
 
 CanIShipEU can combine both:
 
@@ -476,7 +620,7 @@ CanIShipEU can combine both:
               Reciprocal Rank
                   Fusion
                        ↓
-                 Ranked Set
+                Candidate Set
 ```
 
 This gives the retrieval layer both semantic flexibility and exact-match precision.
@@ -496,42 +640,44 @@ Semantic results
       +
 Keyword results
       +
-Other research query results
+Research-query results
       ↓
      RRF
       ↓
 Unified ranking
 ```
 
-The system can then keep the strongest candidates for deeper evaluation.
-
-The exact retrieval implementation can evolve as the prototype corpus grows.
+RRF is intentionally implemented as a small retrieval utility rather than requiring a large infrastructure stack.
 
 ---
 
 # 🎯 Reranking
 
-After initial retrieval and fusion, the candidate evidence can be reranked against the **original founder question**.
+After initial retrieval and fusion, candidate evidence can be reranked against the **original founder question** and the specific research question.
 
-This is important because generated queries are useful for finding evidence, but the final relevance decision should remain anchored to what the founder actually asked.
+This helps prevent generated query rewrites from becoming the only definition of relevance.
 
 Conceptually:
 
 ```text
 Original founder question
           +
+Research question
+          +
 Candidate evidence
           ↓
-     Relevance score
+      Relevance score
           ↓
-      Top evidence
+       Top evidence
 ```
 
 A cross-encoder or equivalent reranking model can be introduced where it provides enough value to justify the additional complexity.
 
+Reranking is optional if the initial corpus is small enough that deterministic ranking is sufficient.
+
 ---
 
-# 🔁 Corrective Research
+# 🔁 Corrective Evidence Research
 
 CanIShipEU does not assume that the first retrieval is sufficient.
 
@@ -546,14 +692,14 @@ Search
       ↓
 Retrieved Evidence
       ↓
-Evidence Sufficiency Grader
+Evidence Sufficiency
       ↓
       5/10
 ```
 
 The system may identify:
 
-> "The evidence discusses AI regulation generally, but does not establish how candidate evaluation is classified."
+> "The evidence discusses AI regulation generally, but does not establish whether this particular employment use case falls within the relevant category."
 
 That missing piece becomes the next research target.
 
@@ -571,13 +717,68 @@ Round 2
 Evaluate evidence again
 ```
 
-The system can perform up to a limited number of corrective rounds.
+The system should use a bounded number of rounds, for example:
 
-The important principle is:
+```text
+Maximum corrective rounds: 2–3
+```
+
+It should keep the strongest evidence round rather than blindly using the final round.
+
+The principle is:
 
 > **If the evidence is insufficient, improve the research before improving the prose.**
 
-The system keeps the strongest evidence set rather than blindly using the final retrieval round.
+---
+
+# 📦 EvidencePack
+
+Research results are converted into a structured evidence package before assessment.
+
+```ts
+type ResearchQuery = {
+  original: string;
+
+  rewrite?: string;
+  stepBack?: string;
+
+  subQuestions?: string[];
+  keywords?: string[];
+};
+```
+
+```ts
+type EvidenceChunk = {
+  sourceId: string;
+
+  title: string;
+  url: string;
+
+  location?: string;
+
+  text: string;
+
+  score?: number;
+
+  retrievalRound?: number;
+};
+```
+
+```ts
+type EvidencePack = {
+  question: string;
+
+  chunks: EvidenceChunk[];
+
+  gaps: string[];
+
+  retrievalRound: number;
+
+  sufficient: boolean;
+};
+```
+
+This gives the assessment layer a controlled research boundary.
 
 ---
 
@@ -648,13 +849,13 @@ For example:
 ```text
 QUESTION
 
-Does candidate scoring fall into a regulated AI category?
+Does candidate evaluation fall into a regulated category?
 
        ↓
 
 EVIDENCE
 
-Official EU source
+Official source
 Relevant section
 Supporting text
 
@@ -663,13 +864,13 @@ Supporting text
 CLAIM
 
 The described use case appears relevant
-to the employment-related provisions.
+to the relevant employment provisions.
 
        ↓
 
 ASSESSMENT
 
-YELLOW
+LIKELY REGULATED
 ```
 
 This is intentionally different from:
@@ -697,8 +898,8 @@ The assessment model receives controlled evidence identifiers:
 If the model writes:
 
 ```text
-Candidate evaluation may be subject to
-the relevant employment-related provisions.
+The described use case appears relevant
+to employment-related provisions.
 [EVIDENCE_01]
 ```
 
@@ -715,12 +916,68 @@ Real source
       ↓
 Real URL
       ↓
-Relevant section / page / timestamp
+Relevant article / section / page
 ```
 
 If the model produces a citation identifier that does not exist in the supplied evidence set, it should not be displayed.
 
 This prevents the model from fabricating references.
+
+---
+
+# 🛡️ Evidence Contract
+
+The assessment layer follows an explicit evidence contract.
+
+### Every material claim should be supported.
+
+If a claim matters to the assessment, it should have supporting evidence.
+
+### Unsupported claims should not become facts.
+
+If the research layer cannot support a claim:
+
+```text
+Do not guess.
+Do not invent.
+Do not confidently complete the sentence.
+```
+
+Instead:
+
+```text
+Mark uncertainty
+      or
+Research the missing fact
+      or
+Omit the claim
+```
+
+### Dates require explicit support.
+
+Regulatory dates should come from identified evidence, not model memory.
+
+### Evidence and interpretation stay separate.
+
+The system should distinguish:
+
+```text
+SOURCE SAYS
+```
+
+from:
+
+```text
+CANISHIPEU INTERPRETATION
+```
+
+### Evidence floor
+
+If the evidence cannot support a meaningful assessment, the system should return:
+
+> **INSUFFICIENT EVIDENCE**
+
+rather than manufacturing a confident answer.
 
 ---
 
@@ -747,19 +1004,105 @@ CanIShipEU prioritizes authoritative sources.
 * Regulatory commentary
 * Industry guidance
 
-Secondary sources may provide useful context, but the assessment should prioritize primary sources whenever possible.
+Secondary sources may provide useful context, but primary sources should carry the assessment wherever possible.
 
 ---
 
-# 🟢 🟡 🔴 Assessment
+# 📅 Versioned Source Pack
 
-The system produces a structured assessment rather than a single conversational answer.
+The prototype uses a **curated, versioned source pack** rather than pretending to have a complete legal database.
+
+The initial corpus should prioritize the employment/recruitment case.
+
+Each source should have metadata such as:
+
+```text
+Source ID
+Title
+Authority
+URL
+Publication date
+Last updated date
+Effective date
+Jurisdiction
+Relevant article / section
+Corpus version
+```
+
+Example:
+
+```json
+{
+  "source_id": "eu-example-001",
+  "title": "Official EU source",
+  "authority": "European Union",
+  "url": "https://example.eu",
+  "published_at": "2026-01-01",
+  "updated_at": "2026-08-01",
+  "jurisdiction": "EU",
+  "version": "2026-09"
+}
+```
+
+The corpus should be deliberately small enough that it can be inspected by a human.
+
+> **A small trustworthy corpus is better than a giant unverified corpus.**
+
+---
+
+# 🟡 Assessment Philosophy
+
+The first version intentionally avoids making the UI look like a regulatory permit.
+
+A traffic light is easy to screenshot, misunderstand and quote out of context.
+
+Instead, the assessment uses research-oriented statuses.
+
+### `LIKELY REGULATED`
+
+The sources reviewed indicate that the described system is likely within a relevant regulatory category or obligation set.
+
+### `POTENTIALLY RESTRICTED`
+
+The evidence indicates that significant restrictions, prohibitions, conditions or other serious regulatory concerns may apply.
+
+### `INSUFFICIENT EVIDENCE`
+
+The available evidence is not sufficient to make a meaningful assessment.
+
+### `NO ANNEX III HOOK FOUND IN SOURCES REVIEWED`
+
+Where appropriate, and only after sufficiently targeted research, the system may state that it did not identify a relevant Annex III hook in the sources reviewed.
+
+This is **not** a declaration of compliance.
+
+It means only:
+
+> **No relevant hook was identified in the evidence reviewed.**
+
+The system should never imply:
+
+> "You're legally cleared."
+
+or:
+
+> "You are definitely compliant."
+
+---
+
+# 📊 Assessment Schema
 
 ```ts
 type Assessment = {
-  verdict: "GREEN" | "YELLOW" | "RED";
+  status:
+    | "LIKELY_REGULATED"
+    | "POTENTIALLY_RESTRICTED"
+    | "INSUFFICIENT_EVIDENCE"
+    | "NO_ANNEX_III_HOOK_FOUND";
 
   confidence: "low" | "medium" | "high";
+
+  asOfDate: string;
 
   summary: string;
 
@@ -772,6 +1115,7 @@ type Assessment = {
   importantDates: {
     date: string;
     description: string;
+    evidenceIds: string[];
   }[];
 
   euVsUs: {
@@ -781,44 +1125,44 @@ type Assessment = {
 
   uncertainties: string[];
 
+  whatWouldChangeAssessment: string[];
+
   sources: {
     title: string;
     url: string;
+    evidenceIds?: string[];
   }[];
 };
 ```
 
-### Verdict semantics
+---
 
-#### 🟢 GREEN
+# 🔄 What Would Change This Assessment?
 
-No major regulatory obstacle was identified from the sources reviewed.
+This is a first-class product feature.
 
-This does **not** mean the product is guaranteed to be legally compliant.
+The founder shouldn't only see:
 
-#### 🟡 YELLOW
+> "Here's the answer."
 
-The product may be launchable, but meaningful regulatory requirements, dependencies or uncertainty need attention.
+They should also see:
 
-#### 🔴 RED
+> **"Here's what could change the answer."**
 
-A significant restriction, prohibition or serious regulatory obstacle appears relevant based on the evidence reviewed.
+For example:
 
-The system should never claim:
+```text
+WHAT WOULD CHANGE THIS ASSESSMENT?
 
-> "Definitely legal."
+• If the AI stops evaluating candidates
+• If the system is used only for administrative assistance
+• If the company is only a deployer rather than a provider
+• If the launch geography changes
+• If the planned launch date changes
+• If biometric processing is introduced
+```
 
-or:
-
-> "Definitely illegal."
-
-Instead, it should communicate:
-
-* What was found
-* Why it matters
-* Which requirements may apply
-* What remains uncertain
-* Which sources support the assessment
+This turns the product from a static answer generator into a decision-support system.
 
 ---
 
@@ -830,35 +1174,53 @@ Founders often aren't asking only:
 
 They're asking:
 
-> "Should we launch in Europe or the US first?"
+> **"Should we launch in Europe or the US first?"**
 
-CanIShipEU therefore includes an EU vs US comparison as part of the assessment.
+CanIShipEU therefore includes an EU vs US comparison.
 
-The comparison is designed to provide decision context rather than pretending that "Europe" or "the US" has one universal regulatory framework.
+The comparison is intentionally narrow.
+
+The system should not pretend that:
+
+```text
+EU = one universal rule
+US = one universal rule
+```
+
+Instead, it should research the specific use case.
 
 Example:
 
 ```text
 🇪🇺 EUROPE
 
-Relevant framework
-Applicable obligations
-Data considerations
-Transparency requirements
-Human oversight
-Important dates
+Relevant horizontal framework
+Relevant employment considerations
+Applicable dates
+Data protection considerations
+Specific obligations identified
 
 
-🇺🇸 US
+🇺🇸 UNITED STATES
 
 Relevant federal considerations
-State-level considerations
-Sector-specific requirements
-Different compliance path
+Relevant state considerations
+Sector-specific requirements where supported
+No equivalent horizontal regime where applicable
 Important uncertainties
 ```
 
-The system should clearly distinguish between broad jurisdiction-level context and specific laws that apply to the startup's use case.
+If no relevant US rule has been retrieved, the system should say so.
+
+For example:
+
+> "No equivalent horizontal regime was identified in the sources reviewed."
+
+That is preferable to generating a generic:
+
+> "The US is less regulated."
+
+The US comparison exists to support founder decisions, not to produce artificial symmetry.
 
 ---
 
@@ -924,50 +1286,84 @@ type VoiceProviderName =
   | "sarvam";
 ```
 
-### Primary: Gradium
+---
+
+## Primary Voice: Gradium
 
 Gradium is the primary voice provider for the prototype.
 
-It is used for the main voice interaction:
+The main demo path should be:
 
 ```text
-Founder voice
-    ↓
+Founder
+   ↓
 Gradium STT
-    ↓
+   ↓
 CanIShipEU reasoning
-    ↓
+   ↓
 Gradium TTS
-    ↓
-Founder hears response
+   ↓
+Founder
 ```
 
-CanIShipEU also uses **Gradium Voice Design** to create a dedicated product voice rather than relying only on a generic preset.
+The product also uses **Gradium Voice Design** to create a dedicated CanIShipEU voice identity.
 
-The intended voice is:
+The intended voice direction:
 
-> Calm, precise, analytical and reassuring — authoritative without sounding corporate or overly dramatic.
+> **A calm European female voice in her late thirties, clear and authoritative without sounding corporate, neutral international English with a subtle European character, warm but precise, medium-low pitch, deliberate conversational pacing, confident and analytical, reassuring when explaining uncertainty, never dramatic or overly enthusiastic. Designed for a voice-first regulatory research assistant helping startup founders understand complex EU rules.**
 
-The goal is to give CanIShipEU a recognizable voice identity while keeping the voice itself secondary to the product experience.
+The objective is not to showcase voice technology for its own sake.
+
+The objective is for the founder to hear a **consistent, recognizable CanIShipEU voice**.
+
+---
+
+# 🎨 Voice Design
+
+The Voice Design workflow is:
+
+```text
+Voice description
+       ↓
+Generate candidates
+       ↓
+Evaluate candidates
+       ↓
+Choose CanIShipEU voice
+       ↓
+Store selected voice
+       ↓
+Use through TTS
+```
+
+The main application should not expose a voice marketplace or voice picker.
+
+The user should simply experience:
+
+> **The CanIShipEU voice.**
+
+Voice Design therefore becomes part of the product's identity rather than another feature in the UI.
+
+---
+
+# 🧪 Optional Voice Providers
 
 ### Cartesia
 
-Cartesia is supported as an optional provider adapter for:
+Cartesia can be integrated as an optional provider adapter for:
 
 * Voice experiments
-* Latency / quality comparison
-* Alternative TTS paths
-* Future fallback strategies
+* Latency comparisons
+* TTS quality comparisons
+* Alternative voice paths
 
 It does not need to participate in every request.
 
 ### Sarvam
 
-Sarvam is supported as an optional multilingual provider adapter.
+Sarvam can be integrated as an optional multilingual provider adapter for:
 
-Its potential role is:
-
-* Multilingual founder interaction
+* Multilingual founder conversations
 * Language experiments
 * Future localization
 
@@ -994,39 +1390,17 @@ The providers are replaceable infrastructure.
 
 ---
 
-# 🎨 Voice Design
+# 🎨 Avatar Philosophy
 
-Voice Design is used as a product-level capability rather than a gimmick.
+CanIShipEU intentionally avoids celebrity faces or recognizable public-figure voices.
 
-The intended workflow is:
+The product should not depend on a political or celebrity likeness.
 
-```text
-Voice description
-       ↓
-Generate candidates
-       ↓
-Evaluate voice
-       ↓
-Choose CanIShipEU voice
-       ↓
-Store voice ID
-       ↓
-Use through normal TTS
-```
+If an avatar is eventually added, it should be:
 
-The application should not expose a "choose your voice" interface in the main product.
-
-The user should simply experience a consistent CanIShipEU voice.
-
----
-
-# 🔴 Avatar Philosophy
-
-The prototype intentionally avoids celebrity faces or voices.
-
-The product should not depend on a recognizable political or celebrity likeness.
-
-If an avatar is eventually added, it should be an original CanIShipEU visual identity — or, preferably, a subtle animated interface/orb.
+* An original CanIShipEU character
+* A subtle animated analyst
+* Or simply an animated orb/interface
 
 The important demo moment should be:
 
@@ -1036,22 +1410,22 @@ not:
 
 > **"Why is a celebrity talking to me?"**
 
-Voice remains the primary human interface.
+Voice and reasoning remain the focus.
 
 ---
 
 # 🔄 LiveKit / Realtime Direction
 
-A future version can experiment with realtime voice infrastructure such as LiveKit.
+Realtime voice infrastructure can be explored as a future layer.
 
-The initial architecture remains intentionally simple:
+The initial architecture remains:
 
 ```text
 Mic
  ↓
 STT
  ↓
-LLM
+Reasoning
  ↓
 TTS
  ↓
@@ -1070,16 +1444,19 @@ CanIShipEU Reasoning Engine
 
 This could eventually enable:
 
-* More natural turn-taking
+* Natural turn-taking
 * Interruptions
 * Lower perceived latency
-* Continuous voice conversations
+* More fluid conversations
+* Continuous voice interaction
 
-Realtime infrastructure is therefore an **optional evolution**, not a requirement for the core prototype.
+LiveKit is therefore treated as an **optional realtime experiment**, not a requirement for the core MVP.
+
+The text research brief must be useful even if all voice infrastructure is removed.
 
 ---
 
-# 🗣️ Conversation State
+# 🔄 Conversation State
 
 The assistant maintains lightweight conversation history.
 
@@ -1099,29 +1476,35 @@ Listening
  ↓
 Transcribing
  ↓
-Thinking
+Understanding
+ ↓
+Clarifying
  ↓
 Researching
+ ↓
+Verifying
+ ↓
+Assessing
  ↓
 Speaking
  ↓
 Waiting
 ```
 
-This allows founders to:
+The UI can expose the high-level research state:
 
-* Clarify their startup
-* Correct assumptions
-* Ask follow-up questions
-* Change launch geography
-* Challenge an assessment
-* Explore "what if" scenarios
+```text
+UNDERSTANDING       ✓
+IDENTIFYING         ✓
+RESEARCHING         ✓
+CHECKING EVIDENCE   ●
+ANALYZING           ○
+BUILDING BRIEF      ○
+```
 
-For example:
+This reinforces the core product idea:
 
-> "What if we remove the automated candidate ranking?"
-
-The system should be able to update the relevant startup context and reassess the situation.
+> **The system is investigating, not merely generating text.**
 
 ---
 
@@ -1133,7 +1516,8 @@ Examples:
 
 * Understanding startup descriptions
 * Extracting structured startup context
-* Identifying missing information
+* Identifying material uncertainty
+* Generating clarification questions
 * Generating research questions
 * Translating queries
 * Identifying research gaps
@@ -1147,7 +1531,7 @@ Conceptually:
 ```ts
 const result = await llm.analyze({
   startupProfile,
-  sources
+  evidencePack
 });
 ```
 
@@ -1155,9 +1539,95 @@ The LLM provider can be changed without rewriting the product architecture.
 
 ---
 
+# 🧱 Lightweight Research Architecture
+
+CanIShipEU deliberately does **not** copy large advanced-RAG architectures wholesale.
+
+The prototype does not need:
+
+```text
+Postgres
++
+Qdrant
++
+Redis
++
+BullMQ
++
+S3
++
+multiple backend services
++
+large crawler
+```
+
+just to prove the concept.
+
+Instead:
+
+```text
+Curated source corpus
+       ↓
+Simple metadata
+       ↓
+Lightweight retrieval
+       ↓
+Semantic + keyword search
+       ↓
+RRF
+       ↓
+Optional reranking
+       ↓
+Evidence grading
+       ↓
+Corrective research
+```
+
+A vector database can be introduced later if the corpus becomes large enough to justify it.
+
+The architecture should earn its complexity.
+
+---
+
+# 🚫 What We Deliberately Do NOT Copy
+
+CanIShipEU borrows useful ideas from advanced RAG systems, but not their entire infrastructure.
+
+We deliberately avoid:
+
+* ❌ Giant vector databases for a tiny corpus
+* ❌ Distributed queues
+* ❌ Microservice architecture
+* ❌ Arbitrary user-source ingestion in V1
+* ❌ Complex SQL routing
+* ❌ Huge crawler infrastructure
+* ❌ Background processing infrastructure
+* ❌ Full legal database replication
+* ❌ Framework-heavy RAG abstractions
+* ❌ Analytics systems before the core loop works
+
+We keep the mechanisms that improve evidence quality:
+
+* Original query preservation
+* Query decomposition
+* Hybrid retrieval
+* RRF
+* Optional reranking
+* Evidence sufficiency grading
+* Corrective research
+* Best-round selection
+* Claim-to-evidence mapping
+* Evidence-floor refusal
+
+This is an engineering judgment:
+
+> **Borrow the mechanism, not the architecture.**
+
+---
+
 # 💰 Cost Strategy
 
-The prototype is designed around a **$0-first development strategy**.
+The prototype follows a **$0-first development strategy**.
 
 The goal is to use available free tiers and credits efficiently while avoiding unnecessary infrastructure.
 
@@ -1170,16 +1640,16 @@ The goal is to use available free tiers and credits efficiently while avoiding u
 ### LLM
 
 * OpenRouter free models where appropriate
-* Groq free tier as a fallback / alternative
+* Groq free tier as fallback / alternative
 
 ### Research
 
 * Curated authoritative EU sources
-* Lightweight targeted retrieval
+* Lightweight retrieval
 
 ### Infrastructure
 
-* Next.js API routes
+* Next.js
 * Local development first
 * Optional Vercel deployment later
 
@@ -1217,24 +1687,28 @@ Free-tier availability and provider limits can change, so the implementation sho
             StartupProfile
                   │
                   ▼
-         Context sufficient?
+        Material context missing?
              │          │
-            NO         YES
+            YES         NO
              │          │
              ▼          ▼
        Clarification   Regulatory
              │          Mapping
              └────┬─────┘
                   ▼
+        Provider / Deployer
+             Analysis
+                  │
+                  ▼
           Research Questions
                   │
                   ▼
             Query Translation
-          ┌───────┼────────┐
-          ↓       ↓        ↓
+          ┌───────┼─────────┐
+          ↓       ↓         ↓
        Rewrite  Step-back  Subquestions
-          │       │        │
-          └───────┼────────┘
+          │       │         │
+          └───────┼─────────┘
                   │
                   ▼
            Hybrid Retrieval
@@ -1248,25 +1722,24 @@ Free-tier availability and provider limits can change, so the implementation sho
                 RRF
                 │
                 ▼
-             Rerank
+        Optional Reranking
                 │
                 ▼
-          Top Evidence
+          Candidate Evidence
                 │
                 ▼
        Evidence Sufficiency
-             Grader
                 │
           ┌─────┴─────┐
           │           │
-     Insufficient   Sufficient
+       Insufficient  Sufficient
           │           │
           ▼           ▼
-      Identify Gap  Evidence Pack
+      Identify Gap  EvidencePack
           │           │
           ▼           │
-   New Research      │
-      Query           │
+   Refined Research │
+       Query          │
           │           │
           └─────┬─────┘
                 ▼
@@ -1278,14 +1751,20 @@ Free-tier availability and provider limits can change, so the implementation sho
                 ▼
              Validation
                 │
+                ▼
+        Claim → Evidence Map
+                │
           ┌─────┴─────┐
           ▼           ▼
        Visual       Voice
-        Result      Summary
+        Brief      Summary
           │           │
           └─────┬─────┘
                 ▼
            Follow-up
+                │
+                ▼
+           Reassessment
 ```
 
 ---
@@ -1315,8 +1794,8 @@ canishipeu/
 │   ├── Conversation.tsx
 │   ├── StartupProfile.tsx
 │   ├── ResearchProgress.tsx
-│   ├── VerdictCard.tsx
-│   ├── Assessment.tsx
+│   ├── AssessmentBrief.tsx
+│   ├── EvidencePanel.tsx
 │   ├── EUUSComparison.tsx
 │   └── Sources.tsx
 │
@@ -1326,8 +1805,15 @@ canishipeu/
 │   ├── sarvam.ts
 │   ├── voice.ts
 │   ├── llm.ts
-│   ├── research.ts
-│   ├── retrieval.ts
+│   │
+│   ├── research/
+│   │   ├── questions.ts
+│   │   ├── retrieval.ts
+│   │   ├── fusion.ts
+│   │   ├── rerank.ts
+│   │   ├── corrective.ts
+│   │   └── evidence.ts
+│   │
 │   ├── regulations.ts
 │   ├── prompts.ts
 │   └── validation.ts
@@ -1383,7 +1869,7 @@ StartupProfile
 
 ### `POST /api/research`
 
-Determines relevant regulatory topics, generates research questions, performs retrieval and produces the evidence package.
+Runs the regulatory investigation.
 
 ```text
 StartupProfile
@@ -1396,7 +1882,9 @@ Query Translation
  ↓
 Hybrid Retrieval
  ↓
-RRF / Ranking
+RRF
+ ↓
+Optional Reranking
  ↓
 Evidence Sufficiency
  ↓
@@ -1409,7 +1897,7 @@ EvidencePack
 
 ### `POST /api/assess`
 
-Reasons over the startup profile and collected evidence to generate a structured assessment.
+Reasons over the startup profile and evidence package.
 
 ```text
 StartupProfile
@@ -1420,14 +1908,16 @@ LLM
  ↓
 Assessment
  ↓
-Validation
+Structured Validation
+ ↓
+Claim / Evidence Validation
 ```
 
 ---
 
 ### `POST /api/speak`
 
-Converts the assistant's response into speech using the selected TTS provider.
+Converts the assistant's response into speech.
 
 ```text
 Response Text
@@ -1467,79 +1957,124 @@ Not legal advice.
 
 Possible positioning line:
 
-> **Tell me what you're building. I'll check the EU vs US reality.**
+> **Tell me what you're building. I'll investigate the EU vs US reality.**
 
 ---
 
-# 📊 Result Interface
+# 📊 Founder Brief
 
-The detailed result should look roughly like:
+The result should look like a compact research memo rather than a regulatory traffic light.
 
 ```text
-┌────────────────────────────────────────┐
-│        CAN I SHIP THIS?                │
-│                                        │
-│               🟡                       │
-│             YELLOW                     │
-│                                        │
-│ Potentially launchable, but meaningful │
-│ requirements need attention.           │
-└────────────────────────────────────────┘
-
-WHY
-
-• Employment-related AI
-• Candidate evaluation
-• Personal data
-• EU deployment
+┌────────────────────────────────────────────┐
+│ CANISHIPEU                                 │
+│ Regulatory Research Brief                 │
+│                                            │
+│ ASSESSMENT AS OF: September 2026           │
+│                                            │
+│ 🟡 LIKELY REGULATED                        │
+│                                            │
+│ The sources reviewed indicate that the     │
+│ described recruitment use case may fall    │
+│ within relevant employment AI provisions.  │
+└────────────────────────────────────────────┘
 
 
-WHAT TO INVESTIGATE
+WHY THIS MATTERS
 
-✓ AI classification
-✓ Human oversight
-✓ Documentation
-✓ Transparency
-✓ Data protection
-
-
-IMPORTANT DATES
-
-...
+• Candidate evaluation is central to the system
+• Employers use the system for recruitment
+• Personal data is processed
+• Human involvement does not automatically
+  remove regulatory relevance
 
 
-EU 🇪🇺                  US 🇺🇸
+WHAT WE FOUND
 
-...                     ...
+✓ Relevant regulatory category
+✓ Provider / deployer considerations
+✓ Applicable requirements to investigate
+✓ Relevant dates
 
 
-SOURCES
+WHAT WOULD CHANGE THIS?
 
-...
+• Change the AI's role
+• Remove candidate evaluation
+• Change deployment model
+• Change geography
+• Change launch timing
+
+
+EVIDENCE
+
+[EVIDENCE_01]
+Official source
+Relevant section
+
+
+[EVIDENCE_02]
+Official source
+Relevant section
+
+
+EU 🇪🇺 vs US 🇺🇸
+
+Concise, source-backed comparison.
+
+
+OPEN QUESTIONS
+
+• ...
+• ...
+
+
+Prototype / informational tool.
+Not legal advice.
 ```
 
-The interface should make the reasoning visible without overwhelming the founder.
+The goal is to make the output:
+
+* Useful
+* Scannable
+* Screenshot-friendly
+* Evidence-backed
+* Honest about uncertainty
 
 ---
 
 # 🔬 Research Progress UI
 
-Research should feel transparent rather than like a generic loading screen.
-
-For example:
+Research should feel transparent rather than like a generic loading spinner.
 
 ```text
 UNDERSTANDING       ✓
 IDENTIFYING         ✓
-RESEARCHING         ●
-CHECKING EVIDENCE   ○
+RESEARCHING         ✓
+CHECKING EVIDENCE   ●
 ANALYZING           ○
-BUILDING ASSESSMENT ○
+BUILDING BRIEF      ○
 ```
 
-This reinforces the core product idea:
+During corrective research:
 
-> **The system is investigating, not merely generating text.**
+```text
+Evidence check
+
+Round 1
+  Evidence insufficient
+
+Missing:
+Candidate classification
+
+Searching for:
+Employment + candidate evaluation
+
+Round 2
+  Evidence improved
+```
+
+This makes the research process itself part of the product experience.
 
 ---
 
@@ -1551,11 +2086,27 @@ This reinforces the core product idea:
 
 ### CanIShipEU
 
-> "Does the AI make the final hiring decision, or does a human make the final decision?"
+> "Are you providing this AI system to employers, using it internally yourself, or both?"
 
-### Founder
+Founder:
 
-> "A human makes the final decision."
+> "We're selling it to companies. They use it during hiring."
+
+CanIShipEU:
+
+> "Does the system only help recruiters organize candidates, or does it evaluate or rank candidates?"
+
+Founder:
+
+> "It scores them and recommends who should be interviewed."
+
+CanIShipEU:
+
+> "Does a human make the final hiring decision?"
+
+Founder:
+
+> "Yes."
 
 ### Internal process
 
@@ -1566,9 +2117,13 @@ Employment identified
       ↓
 Candidate evaluation identified
       ↓
-Human oversight identified
+Provider role identified
+      ↓
+Human involvement identified
       ↓
 EU deployment identified
+      ↓
+Launch date identified
       ↓
 Research questions generated
       ↓
@@ -1576,44 +2131,64 @@ Official sources retrieved
       ↓
 Evidence checked
       ↓
+Missing evidence identified
+      ↓
+Corrective research
+      ↓
 Assessment generated
 ```
 
 ### Result
 
 ```text
-🟡 YELLOW
+LIKELY REGULATED
 
-Relevant areas:
+Assessment as of:
+September 2026
 
-• Employment-related AI
-• Candidate evaluation
-• Personal data
+Why:
+
+• Employment context identified
+• Candidate evaluation is central
+• AI influences recruitment decisions
+• Provider / deployer responsibilities require analysis
+• Human involvement does not automatically remove
+  regulatory relevance
+
+
+What to investigate:
+
+• Applicable AI classification
+• Provider obligations
+• Deployer obligations
 • Human oversight
-• EU deployment
-
-
-Requires investigation:
-
-• AI classification
-• Applicable obligations
-• Transparency
 • Documentation
-• Human oversight
+• Transparency
 • Data protection
+
+
+What would change this:
+
+• Removing candidate evaluation
+• Changing the AI's role
+• Changing deployment model
+• Changing geography
+• Changing launch timing
+
+
+Evidence:
+
+Primary sources reviewed
+with traceable sections.
 
 
 EU vs US:
 
-Different regulatory considerations apply.
-
-Sources:
-
-Primary EU / national sources used
-for the assessment.
+Specific differences identified from
+sources reviewed.
 ```
 
-The exact verdict should always depend on the evidence retrieved for the specific scenario.
+The exact assessment depends on the evidence retrieved for the specific scenario.
 
 ---
 
@@ -1640,28 +2215,34 @@ System asks a smart clarification.
 0:20
 Founder answers.
 
-0:22
-RESEARCHING...
+0:23
+Another material clarification.
 
 0:28
+RESEARCHING...
+
+0:33
 Evidence appears.
 
-0:32
-🟡 YELLOW
+0:38
+CHECKING EVIDENCE...
 
-0:35
-Why?
+0:42
+"One more thing matters..."
 
-0:43
-"What if we launch in the US?"
-
-0:47
-EU vs US
+0:48
+Evidence-backed brief appears.
 
 0:55
-Voice explanation.
+"What would change this?"
 
 1:00
+EU vs US
+
+1:08
+Voice explanation.
+
+1:15
 "Built this as a prototype."
 ```
 
@@ -1681,39 +2262,51 @@ The interesting engineering is the combination of:
 
 Natural language → structured startup representation.
 
-### 2. Adaptive clarification
+### 2. Material clarification
 
-The system determines what information is still missing.
+The system determines which missing facts could actually change the investigation.
 
-### 3. Regulatory routing
+### 3. Provider / deployer analysis
+
+The system does not collapse different roles into one generic startup responsibility.
+
+### 4. Regulatory routing
 
 Startup characteristics → relevant regulatory research areas.
 
-### 4. Query translation
+### 5. Query translation
 
 One founder question → multiple research strategies.
 
-### 5. Hybrid retrieval
+### 6. Hybrid retrieval
 
 Semantic + exact keyword retrieval.
 
-### 6. Evidence fusion
+### 7. Evidence fusion
 
 Multiple rankings → unified evidence ranking.
 
-### 7. Corrective research
+### 8. Corrective research
 
 Insufficient evidence → identify gap → search again.
 
-### 8. Grounded reasoning
+### 9. Grounded reasoning
 
 Assessment based on supplied evidence.
 
-### 9. Citation integrity
+### 10. Citation integrity
 
 Model-generated evidence references are validated against actual supplied evidence.
 
-### 10. Voice-first UX
+### 11. Time-aware research
+
+Sources and regulatory dates are explicitly tracked.
+
+### 12. Reassessment
+
+Changing a material startup assumption can trigger a new investigation.
+
+### 13. Voice-first UX
 
 The entire process feels like an agent rather than a search form.
 
@@ -1738,6 +2331,8 @@ Messy startup description
           ↓
 Structured context
           ↓
+Material uncertainties
+          ↓
 Relevant questions
           ↓
 Relevant research
@@ -1746,6 +2341,35 @@ Validated evidence
           ↓
 Clear decision context
 ```
+
+The voice makes the workflow delightful.
+
+The evidence makes it useful.
+
+---
+
+# 🔐 Evidence Over Confidence
+
+A confident LLM answer is not evidence.
+
+CanIShipEU therefore follows:
+
+> **Research until supported, not until something can be said.**
+
+If evidence is weak:
+
+```text
+Do not increase confidence.
+Increase research.
+```
+
+If research still cannot establish the answer:
+
+```text
+INSUFFICIENT EVIDENCE
+```
+
+This is a deliberate product behavior, not a failure state.
 
 ---
 
@@ -1793,22 +2417,13 @@ The prototype does not include:
 * ❌ Voice cloning as a core feature
 * ❌ Celebrity voice or likeness
 * ❌ Full multilingual expansion
+* ❌ Multiple regulatory verticals before employment is validated
 
 The objective is to demonstrate the **core product loop extremely well**.
 
 ---
 
 # 🧭 Development Principles
-
-### Keep the workflow explicit
-
-Prefer understandable pipelines over framework-heavy abstractions.
-
-### Use the LLM where it adds value
-
-Natural language understanding and reasoning belong with the model.
-
-Deterministic decisions should remain deterministic where possible.
 
 ### Evidence before conclusions
 
@@ -1822,9 +2437,33 @@ If evidence is insufficient, improve the research rather than asking the model t
 
 Generated rewrites should improve retrieval, never replace the founder's actual wording.
 
+### Ask only material questions
+
+Every clarification should have a reason.
+
+### Separate provider and deployer
+
+Do not collapse different responsibilities into a generic startup profile.
+
+### Treat dates as data
+
+Never rely on model memory for important regulatory dates.
+
+### Prefer primary sources
+
+Secondary analysis can help provide context but should not silently replace authoritative sources.
+
 ### Structured outputs
 
 Important model outputs should be validated before reaching the UI.
+
+### Claim-to-evidence traceability
+
+Important conclusions should be traceable to the evidence that supports them.
+
+### Refuse unsupported conclusions
+
+Insufficient evidence should result in insufficient evidence.
 
 ### Provider abstraction
 
@@ -1838,23 +2477,24 @@ A prototype should not need a distributed architecture to demonstrate a good pro
 
 # 🧰 Tech Stack
 
-| Layer                       | Technology                                  |
-| --------------------------- | ------------------------------------------- |
-| Framework                   | Next.js                                     |
-| Language                    | TypeScript                                  |
-| UI                          | Tailwind CSS                                |
-| Components                  | shadcn/ui                                   |
-| Primary Voice               | Gradium                                     |
-| Voice Design                | Gradium Voice Design                        |
-| Optional Voice              | Cartesia                                    |
-| Optional Multilingual Voice | Sarvam                                      |
-| LLM                         | OpenRouter / Groq                           |
-| Research                    | Official EU sources + lightweight retrieval |
-| Retrieval                   | Semantic + keyword + RRF                    |
-| Reasoning                   | Evidence-grounded LLM                       |
-| Backend                     | Next.js API Routes                          |
-| Database                    | None initially                              |
-| Deployment                  | Local first / optional Vercel               |
+| Layer                       | Technology                    |
+| --------------------------- | ----------------------------- |
+| Framework                   | Next.js                       |
+| Language                    | TypeScript                    |
+| UI                          | Tailwind CSS                  |
+| Components                  | shadcn/ui                     |
+| Primary Voice               | Gradium                       |
+| Voice Design                | Gradium Voice Design          |
+| Optional Voice              | Cartesia                      |
+| Optional Multilingual Voice | Sarvam                        |
+| LLM                         | OpenRouter / Groq             |
+| Research                    | Curated official EU sources   |
+| Retrieval                   | Semantic + keyword + RRF      |
+| Reranking                   | Optional                      |
+| Reasoning                   | Evidence-grounded LLM         |
+| Backend                     | Next.js API Routes            |
+| Database                    | None initially                |
+| Deployment                  | Local first / optional Vercel |
 
 ---
 
@@ -1933,6 +2573,8 @@ The system should:
 * Avoid unsupported legal conclusions
 * Validate structured LLM output
 * Clearly distinguish facts from assumptions
+* Show an explicit assessment date
+* Identify important missing evidence
 * Encourage professional legal review for consequential decisions
 
 Every assessment should display:
@@ -1945,64 +2587,9 @@ Every assessment should display:
 
 **CanIShipEU is a prototype for informational and research purposes only. It does not provide legal advice, legal opinions, or guarantees of regulatory compliance.**
 
-Regulatory requirements can depend on the exact product, implementation, jurisdiction, sector, data practices, deployment model and applicable dates.
+Regulatory requirements can depend on the exact product, implementation, jurisdiction, sector, data practices, deployment model, company role and applicable dates.
 
 Always verify important conclusions against current official sources and seek qualified legal advice where appropriate.
-
----
-
-# 🚀 Future Possibilities
-
-If the core concept proves useful, CanIShipEU could evolve into:
-
-## Regulatory Monitoring
-
-> "Tell me when the rules affecting my startup change."
-
-## Founder Compliance Workspace
-
-Track:
-
-* Requirements
-* Evidence
-* Open questions
-* Important dates
-* Regulatory changes
-
-## More Jurisdictions
-
-Expand beyond:
-
-```text
-EU 🇪🇺
-US 🇺🇸
-```
-
-into additional markets.
-
-## Multilingual Founder Conversations
-
-Allow founders to explain products in more languages while preserving the same structured regulatory workflow.
-
-## Deeper Regulatory Domains
-
-Gradually expand the scenario library as the evidence and validation layer becomes more reliable.
-
-## Realtime Voice
-
-Move from request/response voice interactions toward realtime conversational agents with interruption and natural turn-taking.
-
-## Voice Provider Benchmarking
-
-Internally compare:
-
-```text
-Gradium
-Cartesia
-Sarvam
-```
-
-across latency, transcription quality and speech generation.
 
 ---
 
@@ -2018,22 +2605,49 @@ The prototype is successful if a founder can say:
 2. Identify the employment context.
 3. Identify candidate evaluation as relevant.
 4. Understand the role of human decision-making.
-5. Ask useful clarification questions.
-6. Identify relevant regulatory topics.
-7. Generate targeted research questions.
-8. Retrieve authoritative sources.
-9. Combine different retrieval strategies.
-10. Check whether the evidence is sufficient.
-11. Research missing evidence when necessary.
-12. Produce a structured evidence-backed assessment.
-13. Explain a GREEN / YELLOW / RED result.
-14. Show why the result was reached.
-15. Show supporting sources.
-16. Compare relevant EU and US considerations.
-17. Explain the result through voice.
-18. Continue the conversation with follow-up questions.
-19. Reassess when important assumptions change.
-20. Refuse to make unsupported conclusions when the evidence is insufficient.
+5. Identify the likely provider / deployer role.
+6. Ask only useful clarification questions.
+7. Preserve uncertainty when important facts are unknown.
+8. Identify relevant regulatory topics.
+9. Generate targeted research questions.
+10. Preserve the founder's original question.
+11. Retrieve authoritative sources.
+12. Combine semantic and keyword retrieval.
+13. Fuse retrieval results.
+14. Optionally rerank evidence.
+15. Check whether the evidence is sufficient.
+16. Identify missing evidence.
+17. Perform bounded corrective research.
+18. Select the strongest evidence set.
+19. Produce a structured evidence-backed assessment.
+20. Show the assessment date.
+21. Explain why the assessment was reached.
+22. Show what would change the assessment.
+23. Map important claims to evidence.
+24. Show supporting sources.
+25. Provide a narrow EU vs US comparison.
+26. Explain the result through voice.
+27. Continue the conversation with follow-up questions.
+28. Reassess when important assumptions change.
+29. Return `INSUFFICIENT EVIDENCE` instead of guessing when necessary.
+
+---
+
+# 🚀 What Success Looks Like
+
+The first milestone is **not**:
+
+> "We support eight regulatory domains."
+
+It is:
+
+> **"Give us an AI recruitment startup and we'll investigate it properly."**
+
+The golden case should become so reliable that the research output feels almost boring.
+
+That is a feature.
+
+Once the employment workflow is strong, additional verticals can be added without changing the fundamental product architecture.
 
 ---
 
@@ -2050,7 +2664,7 @@ Complex regulation
         +
 Messy startup context
         ↓
-Clear founder decision
+Evidence-backed founder decision
 ```
 
 The long-term opportunity is not simply:
@@ -2063,9 +2677,113 @@ It is:
 
 ---
 
-# ⭐ The One-Liner
+# 🔮 Future Possibilities
 
-> **CanIShipEU is a voice-first AI assistant that helps startup founders understand whether and how they can launch their products in Europe.**
+If the core concept proves useful, CanIShipEU could evolve into:
+
+## Regulatory Monitoring
+
+> "Tell me when something affecting my startup changes."
+
+Track:
+
+* Regulatory changes
+* Important dates
+* New guidance
+* Relevant source updates
+
+---
+
+## Founder Compliance Workspace
+
+Track:
+
+* Requirements
+* Evidence
+* Open questions
+* Important dates
+* Regulatory changes
+* Decisions and assumptions
+
+---
+
+## More Jurisdictions
+
+Expand beyond:
+
+```text
+EU 🇪🇺
+US 🇺🇸
+```
+
+into additional markets.
+
+---
+
+## More Regulatory Domains
+
+Gradually expand into:
+
+```text
+Employment
+    ↓
+Biometrics
+    ↓
+Health
+    ↓
+Credit
+    ↓
+Education
+    ↓
+Other domains
+```
+
+Only after each domain has a sufficiently strong evidence corpus and validation strategy.
+
+---
+
+## Multilingual Founder Conversations
+
+Allow founders to explain products in more languages while preserving the same structured regulatory workflow.
+
+---
+
+## Realtime Voice
+
+Move from request/response voice interactions toward realtime conversational agents with interruption and natural turn-taking.
+
+---
+
+## Voice Provider Benchmarking
+
+Internally compare:
+
+```text
+Gradium
+Cartesia
+Sarvam
+```
+
+across:
+
+* Latency
+* Transcription quality
+* Voice quality
+* Multilingual performance
+
+without making provider comparison part of the core product experience.
+
+---
+
+# ⭐ Product Principle
+
+> **The goal isn't to sound certain. The goal is to know when the evidence is strong enough to say something useful.**
+
+---
+
+# 🎯 The One-Liner
+
+> **CanIShipEU is a voice-first AI regulatory research assistant that helps startup founders understand what EU rules may apply to the products they're building — using targeted questions, current evidence and transparent reasoning.**
 
 ---
 
@@ -2073,4 +2791,4 @@ It is:
 
 # 🇪🇺 Can I ship this in Europe?
 
-**Just ask.**
+### Just ask
