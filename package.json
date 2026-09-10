@@ -1,0 +1,39 @@
+{
+  "name": "canishipeu",
+  "version": "1.0.0",
+  "description": "**CanIShipEU** is a voice-first regulatory research assistant for startup founders.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "check:sources": "tsx src/sources/testSources.ts",
+    "check:evidence": "tsx src/sources/testEvidence.ts",
+    "check:matrix": "tsx src/regulatory/testFactMatrix.ts",
+    "check:assessment": "tsx src/regulatory/testAssessment.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishalsingh2972/CanIShipEU.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishalsingh2972/CanIShipEU/issues"
+  },
+  "homepage": "https://github.com/vishalsingh2972/CanIShipEU#readme",
+  "dependencies": {
+    "next": "^16.3.4",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  }
+}

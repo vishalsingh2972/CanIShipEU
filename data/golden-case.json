@@ -1,0 +1,37 @@
+{
+  "name": "AI recruitment platform",
+  "description": "We’re building an AI recruiter that reads CVs, scores candidates, and recommends who gets interviewed. A human recruiter makes the final decision. We’re launching in France and Germany in 2027.",
+  "expectedProfile": {
+    "product": "AI recruitment platform",
+    "domain": "employment",
+    "aiCapability": "Reads CVs, scores candidates, and recommends candidates for interview.",
+    "users": [
+      "Recruiters",
+      "Employers"
+    ],
+    "affectedPeople": [
+      "Job applicants",
+      "Candidates"
+    ],
+    "decisionRole": "recommendation",
+    "humanInvolvement": true,
+    "usesPersonalData": true,
+    "usesSensitiveData": "unknown",
+    "usesBiometrics": false,
+    "geography": [
+      "France",
+      "Germany"
+    ],
+    "plannedLaunch": "2027",
+    "role": "unknown"
+  },
+  "expectedRegulatoryQuestions": [
+    "Does the AI system fall within the employment-related high-risk categories in Annex III?",
+    "How materially does the AI system influence recruitment or selection decisions?",
+    "Does the Article 6 exception for systems that do not materially influence decision-making apply?",
+    "What human oversight obligations would apply if the system is high-risk?",
+    "What transparency obligations apply to interactions involving the AI system?",
+    "Which obligations apply by the planned 2027 launch date?",
+    "Is the startup acting as an AI provider, deployer, or both?"
+  ]
+}

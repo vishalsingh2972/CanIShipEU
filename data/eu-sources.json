@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ai-act-consolidated-2026-07-27",
+    "title": "Regulation (EU) 2024/1689 — Artificial Intelligence Act",
+    "authority": "European Union / EUR-Lex",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
+    "publishedAt": "2024-07-12",
+    "updatedAt": "2026-07-27",
+    "jurisdiction": "EU",
+    "topic": "ai_act",
+    "version": "2026-07-27-consolidated",
+    "sourceType": "regulation",
+    "notes": "Current consolidated version identified on EUR-Lex. Use the official text for article, annex and applicability analysis."
+  },
+  {
+    "id": "ai-act-annex-iii-employment-2026",
+    "title": "Artificial Intelligence Act — Annex III: High-Risk AI Systems",
+    "authority": "European Union / EUR-Lex",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
+    "updatedAt": "2026-07-27",
+    "jurisdiction": "EU",
+    "topic": "employment_ai",
+    "version": "2026-07-27-consolidated",
+    "sourceType": "regulation",
+    "references": {
+      "annex": "Annex III"
+    },
+    "notes": "Relevant source for determining whether AI systems used in employment, worker management or access to self-employment fall within high-risk categories."
+  },
+  {
+    "id": "ai-act-human-oversight-article-14-2026",
+    "title": "Artificial Intelligence Act — Article 14: Human Oversight",
+    "authority": "European Union / EUR-Lex",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
+    "updatedAt": "2026-07-27",
+    "jurisdiction": "EU",
+    "topic": "human_oversight",
+    "version": "2026-07-27-consolidated",
+    "sourceType": "regulation",
+    "references": {
+      "article": "Article 14"
+    },
+    "notes": "Relevant to human oversight requirements for high-risk AI systems. Human involvement should be modeled as a fact, not treated as an automatic exemption from high-risk classification."
+  },
+  {
+    "id": "ai-act-transparency-article-50-2026",
+    "title": "Artificial Intelligence Act — Article 50: Transparency Obligations",
+    "authority": "European Union / EUR-Lex",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
+    "updatedAt": "2026-07-27",
+    "jurisdiction": "EU",
+    "topic": "transparency",
+    "version": "2026-07-27-consolidated",
+    "sourceType": "regulation",
+    "references": {
+      "article": "Article 50"
+    },
+    "notes": "Relevant to transparency obligations that apply to certain AI systems and interactions."
+  },
+  {
+    "id": "ai-act-applicability-timeline-2026",
+    "title": "Artificial Intelligence Act — Applicability and Implementation Timeline",
+    "authority": "European Commission",
+    "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "updatedAt": "2026-08-24",
+    "jurisdiction": "EU",
+    "topic": "guidance",
+    "version": "2026-08-24",
+    "sourceType": "official_guidance",
+    "notes": "Use current European Commission information to determine which AI Act provisions apply on a given date, including the updated implementation timeline."
+  }
+]

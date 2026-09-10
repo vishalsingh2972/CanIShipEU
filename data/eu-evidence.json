@@ -1,0 +1,62 @@
+[
+  {
+    "id": "evidence-article-6-high-risk-001",
+    "sourceId": "ai-act-consolidated-2026-07-27",
+    "title": "Article 6 — Classification rules for high-risk AI systems",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
+    "location": "Article 6(2) and 6(3)",
+    "text": "Annex III systems are high-risk, subject to Article 6(3)'s conditions and exceptions concerning significant risk and material influence on decision-making.",
+    "authority": "European Union / EUR-Lex",
+    "jurisdiction": "EU",
+    "retrievedAt": "2026-09-10",
+    "evidenceType": "classification"
+  },
+  {
+    "id": "evidence-annex-iii-employment-001",
+    "sourceId": "ai-act-annex-iii-employment-2026",
+    "title": "Annex III — Employment, workers' management and access to self-employment",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
+    "location": "Annex III, point 4(a)",
+    "text": "Annex III point 4(a) covers AI systems intended for recruitment or selection, including analysing and filtering job applications and evaluating candidates.",
+    "authority": "European Union / EUR-Lex",
+    "jurisdiction": "EU",
+    "retrievedAt": "2026-09-10",
+    "evidenceType": "classification"
+  },
+  {
+    "id": "evidence-article-14-human-oversight-001",
+    "sourceId": "ai-act-human-oversight-article-14-2026",
+    "title": "Article 14 — Human oversight",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
+    "location": "Article 14",
+    "text": "High-risk AI systems must be designed so they can be effectively overseen by natural persons during use.",
+    "authority": "European Union / EUR-Lex",
+    "jurisdiction": "EU",
+    "retrievedAt": "2026-09-10",
+    "evidenceType": "requirement"
+  },
+  {
+    "id": "evidence-article-14-override-001",
+    "sourceId": "ai-act-human-oversight-article-14-2026",
+    "title": "Article 14 — Human ability to override AI output",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
+    "location": "Article 14(4)(d)",
+    "text": "Human oversight measures must enable natural persons, where appropriate, to disregard, override or reverse the output of a high-risk AI system.",
+    "authority": "European Union / EUR-Lex",
+    "jurisdiction": "EU",
+    "retrievedAt": "2026-09-10",
+    "evidenceType": "requirement"
+  },
+  {
+    "id": "evidence-article-50-interaction-001",
+    "sourceId": "ai-act-transparency-article-50-2026",
+    "title": "Article 50 — AI interaction transparency",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
+    "location": "Article 50(1)",
+    "text": "Providers must generally ensure that people interacting directly with an AI system are informed that they are interacting with AI, unless that is obvious.",
+    "authority": "European Union / EUR-Lex",
+    "jurisdiction": "EU",
+    "retrievedAt": "2026-09-10",
+    "evidenceType": "requirement"
+  }
+]
