@@ -17,7 +17,13 @@
     "check:retriever": "tsx src/research/testRetriever.ts",
     "check:fusion": "tsx src/research/testFusion.ts",
     "check:token-retriever": "tsx src/research/testTokenRetriever.ts",
-    "check:research": "tsx src/research/testResearch.ts"
+    "check:research": "tsx src/research/testResearch.ts",
+    "check:grader": "tsx src/regulatory/testEvidenceGrader.ts",
+    "check:verified": "tsx src/regulatory/testVerifiedResearch.ts",
+    "check:gaps": "tsx src/regulatory/testVerifiedResearch.ts",
+    "check:corrective": "tsx src/research/testCorrectiveResearch.ts",
+    "check:pack": "tsx src/regulatory/testEvidencePack.ts",
+    "check:claims": "tsx src/regulatory/testClaimEvidence.ts"
   },
   "repository": {
     "type": "git",

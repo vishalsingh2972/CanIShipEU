@@ -167,6 +167,14 @@ export type Assessment = {
 
 export type ResearchQuery = {
   original: string;
+  focus:
+    | "employment_classification"
+    | "decision_influence"
+    | "human_oversight"
+    | "provider_obligations"
+    | "deployer_obligations"
+    | "sensitive_data"
+    | "timeline";
   rewrite?: string;
   stepBack?: string;
   subQuestions?: string[];

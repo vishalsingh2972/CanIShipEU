@@ -17,6 +17,8 @@ export function buildResearchQueries(
     original:
       "Does this AI recruitment system fall within the EU AI Act employment-related high-risk rules?",
 
+    focus: "employment_classification",
+
     rewrite:
       "Does an AI system used to evaluate, score, rank, or recommend job candidates fall within the EU AI Act employment-related high-risk provisions?",
 
@@ -46,6 +48,8 @@ export function buildResearchQueries(
       original:
         "How much influence does the AI have on recruitment decisions?",
 
+      focus: "decision_influence",
+
       rewrite:
         "How does the EU AI Act treat an employment AI system that recommends candidates while a human recruiter makes the final decision?",
 
@@ -73,6 +77,8 @@ export function buildResearchQueries(
     queries.push({
       original:
         "What rules apply if the AI automatically determines recruitment outcomes?",
+
+      focus: "decision_influence",
 
       rewrite:
         "What EU AI Act requirements apply when an AI system directly or automatically determines recruitment or selection outcomes?",
@@ -104,6 +110,8 @@ export function buildResearchQueries(
       original:
         "What human oversight obligations apply to this AI recruitment system?",
 
+      focus: "human_oversight",
+
       rewrite:
         "What human oversight requirements apply to a high-risk AI system used for recruitment when a human recruiter makes the final decision?",
 
@@ -125,11 +133,13 @@ export function buildResearchQueries(
     });
   }
 
-  // Provider/deployer role.
+  // Provider role.
   if (profile.role === "provider") {
     queries.push({
       original:
         "What AI Act obligations apply to us as the provider of the recruitment AI system?",
+
+      focus: "provider_obligations",
 
       rewrite:
         "What provider obligations apply under the EU AI Act to a company developing and providing a high-risk AI system for recruitment?",
@@ -152,6 +162,7 @@ export function buildResearchQueries(
     });
   }
 
+  // Deployer role.
   if (
     profile.role === "deployer" ||
     profile.role === "provider_and_deployer"
@@ -159,6 +170,8 @@ export function buildResearchQueries(
     queries.push({
       original:
         "What AI Act obligations apply to us as a deployer of the recruitment AI system?",
+
+      focus: "deployer_obligations",
 
       rewrite:
         "What deployer obligations apply under the EU AI Act when an employment AI system is used for recruitment or candidate evaluation?",
@@ -187,6 +200,8 @@ export function buildResearchQueries(
       original:
         "What additional rules may apply because the recruitment AI processes sensitive candidate information?",
 
+      focus: "sensitive_data",
+
       rewrite:
         "What additional EU regulatory requirements may apply when an AI recruitment system processes sensitive or specially protected candidate information?",
 
@@ -214,6 +229,8 @@ export function buildResearchQueries(
     queries.push({
       original:
         `Which EU AI Act obligations apply by the planned ${profile.plannedLaunch} launch?`,
+
+      focus: "timeline",
 
       rewrite:
         `Which relevant EU AI Act provisions and obligations will apply by ${profile.plannedLaunch}?`,
