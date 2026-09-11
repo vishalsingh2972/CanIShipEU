@@ -116,6 +116,7 @@ export type StartupProfile = {
     | "unknown";
 
   additionalContext?: string;
+  clarifiedFacts?: string[];
 };
 
 export type Assessment = {

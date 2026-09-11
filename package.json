@@ -11,7 +11,8 @@
     "check:sources": "tsx src/sources/testSources.ts",
     "check:evidence": "tsx src/sources/testEvidence.ts",
     "check:matrix": "tsx src/regulatory/testFactMatrix.ts",
-    "check:assessment": "tsx src/regulatory/testAssessment.ts"
+    "check:assessment": "tsx src/regulatory/testAssessment.ts",
+    "check:founder": "tsx src/founder/testFounder.ts"
   },
   "repository": {
     "type": "git",

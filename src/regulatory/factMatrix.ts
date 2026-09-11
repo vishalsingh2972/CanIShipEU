@@ -1,9 +1,16 @@
-import type { StartupProfile, RegulatoryFact } from "../types/regulatory";
+import type {
+  StartupProfile,
+  RegulatoryFact,
+} from "../types/regulatory";
 
 export function buildRegulatoryFactMatrix(
   profile: StartupProfile,
 ): RegulatoryFact[] {
   const facts: RegulatoryFact[] = [];
+
+  // --------------------------------------------------
+  // Domain
+  // --------------------------------------------------
 
   if (profile.domain === "employment") {
     facts.push({
@@ -15,6 +22,10 @@ export function buildRegulatoryFactMatrix(
         "Employment-related AI use requires investigation of the AI Act employment provisions.",
     });
   }
+
+  // --------------------------------------------------
+  // AI capability / candidate evaluation
+  // --------------------------------------------------
 
   if (
     profile.aiCapability?.toLowerCase().includes("candidate") ||
@@ -30,6 +41,10 @@ export function buildRegulatoryFactMatrix(
     });
   }
 
+  // --------------------------------------------------
+  // Decision role
+  // --------------------------------------------------
+
   if (profile.decisionRole === "recommendation") {
     facts.push({
       id: "decision-recommendation",
@@ -40,6 +55,32 @@ export function buildRegulatoryFactMatrix(
         "The material influence of the AI output on recruitment decisions must be assessed.",
     });
   }
+
+  if (profile.decisionRole === "decision") {
+    facts.push({
+      id: "decision-automated",
+      label: "AI can make or determine recruitment decisions",
+      value: true,
+      importance: "high",
+      regulatoryImpact:
+        "Direct or automated influence on recruitment decisions requires careful assessment of the applicable high-risk rules and exceptions.",
+    });
+  }
+
+  if (profile.decisionRole === "unknown") {
+    facts.push({
+      id: "decision-role-unknown",
+      label: "AI decision role unknown",
+      value: "unknown",
+      importance: "high",
+      regulatoryImpact:
+        "The degree of AI influence on recruitment decisions must be clarified.",
+    });
+  }
+
+  // --------------------------------------------------
+  // Human involvement
+  // --------------------------------------------------
 
   if (profile.humanInvolvement === true) {
     facts.push({
@@ -52,6 +93,21 @@ export function buildRegulatoryFactMatrix(
     });
   }
 
+  if (profile.humanInvolvement === false) {
+    facts.push({
+      id: "human-involvement",
+      label: "Human involvement",
+      value: false,
+      importance: "high",
+      regulatoryImpact:
+        "The absence of human involvement may materially affect the regulatory analysis and oversight requirements.",
+    });
+  }
+
+  // --------------------------------------------------
+  // Personal / sensitive data
+  // --------------------------------------------------
+
   if (profile.usesPersonalData === true) {
     facts.push({
       id: "personal-data",
@@ -62,6 +118,43 @@ export function buildRegulatoryFactMatrix(
         "Data-protection obligations may need separate analysis from AI Act obligations.",
     });
   }
+
+  if (profile.usesSensitiveData === true) {
+    facts.push({
+      id: "sensitive-data",
+      label: "Sensitive data",
+      value: true,
+      importance: "high",
+      regulatoryImpact:
+        "Sensitive or specially protected candidate information may require additional regulatory analysis.",
+    });
+  }
+
+  if (profile.usesSensitiveData === false) {
+    facts.push({
+      id: "sensitive-data",
+      label: "Sensitive data",
+      value: false,
+      importance: "medium",
+      regulatoryImpact:
+        "The founder states that sensitive or specially protected candidate information is not intentionally processed.",
+    });
+  }
+
+  if (profile.usesSensitiveData === "unknown") {
+    facts.push({
+      id: "sensitive-data-unknown",
+      label: "Sensitive data status unknown",
+      value: "unknown",
+      importance: "medium",
+      regulatoryImpact:
+        "The categories of candidate information being processed should be clarified.",
+    });
+  }
+
+  // --------------------------------------------------
+  // Geography
+  // --------------------------------------------------
 
   if (profile.geography?.includes("France")) {
     facts.push({
@@ -85,6 +178,10 @@ export function buildRegulatoryFactMatrix(
     });
   }
 
+  // --------------------------------------------------
+  // Launch date
+  // --------------------------------------------------
+
   if (profile.plannedLaunch) {
     facts.push({
       id: "planned-launch",
@@ -93,6 +190,43 @@ export function buildRegulatoryFactMatrix(
       importance: "high",
       regulatoryImpact:
         "Regulatory applicability must be evaluated against the planned launch date.",
+    });
+  }
+
+  // --------------------------------------------------
+  // Provider / deployer role
+  // --------------------------------------------------
+
+  if (profile.role === "provider") {
+    facts.push({
+      id: "provider-role",
+      label: "Provider role",
+      value: "provider",
+      importance: "high",
+      regulatoryImpact:
+        "The startup is acting as the AI provider, so provider-specific obligations should be investigated.",
+    });
+  }
+
+  if (profile.role === "deployer") {
+    facts.push({
+      id: "deployer-role",
+      label: "Deployer role",
+      value: "deployer",
+      importance: "high",
+      regulatoryImpact:
+        "The startup is acting as the AI deployer, so deployer-specific obligations should be investigated.",
+    });
+  }
+
+  if (profile.role === "provider_and_deployer") {
+    facts.push({
+      id: "provider-deployer-role",
+      label: "Provider and deployer role",
+      value: "provider_and_deployer",
+      importance: "high",
+      regulatoryImpact:
+        "The startup may have both provider and deployer responsibilities, so both sets of obligations should be investigated.",
     });
   }
 

@@ -1,27 +1,63 @@
+import { extractStartupProfile } from "../founder/profileExtractor";
+import { findClarifications } from "../founder/clarifications";
+import { updateProfileFromClarification } from "../founder/profileUpdater";
 import { buildRegulatoryFactMatrix } from "./factMatrix";
-import type { StartupProfile } from "../types/regulatory";
 
-const profile: StartupProfile = {
-  product: "AI recruitment platform",
-  domain: "employment",
-  aiCapability:
-    "Reads CVs, scores candidates, and recommends candidates for interview.",
-  users: ["Recruiters", "Employers"],
-  affectedPeople: ["Job applicants", "Candidates"],
-  decisionRole: "recommendation",
-  humanInvolvement: true,
-  usesPersonalData: true,
-  usesSensitiveData: "unknown",
-  usesBiometrics: false,
-  geography: ["France", "Germany"],
-  plannedLaunch: "2027",
-  role: "unknown",
-};
+const founderMessage =
+  "We're building an AI recruiter that reads CVs, scores candidates, and recommends who gets interviewed. A human recruiter makes the final decision. We're launching in France and Germany in 2027.";
 
-const facts = buildRegulatoryFactMatrix(profile);
+let profile = extractStartupProfile(founderMessage);
 
-console.log(`Built ${facts.length} regulatory facts.`);
+console.log("Initial regulatory facts:");
+
+let facts = buildRegulatoryFactMatrix(profile);
 
 for (const fact of facts) {
-  console.log(`- ${fact.label}: ${String(fact.value)}`);
+  console.log(
+    `- ${fact.label}: ${String(fact.value)}`,
+  );
 }
+
+// Answer provider/deployer question.
+const providerAnswer =
+  "We build and provide the AI recruitment system ourselves.";
+
+profile = updateProfileFromClarification(
+  profile,
+  "provider-deployer-role",
+  providerAnswer,
+);
+
+// Answer decision influence question.
+const decisionAnswer =
+  "The AI only recommends candidates. A human recruiter makes the final decision.";
+
+profile = updateProfileFromClarification(
+  profile,
+  "decision-influence",
+  decisionAnswer,
+);
+
+// Answer sensitive-data question.
+const sensitiveDataAnswer =
+  "No, we do not intentionally process sensitive candidate information.";
+
+profile = updateProfileFromClarification(
+  profile,
+  "sensitive-data",
+  sensitiveDataAnswer,
+);
+
+console.log("");
+console.log("Updated profile facts:");
+
+facts = buildRegulatoryFactMatrix(profile);
+
+for (const fact of facts) {
+  console.log(
+    `- ${fact.label}: ${String(fact.value)}`,
+  );
+}
+
+console.log("");
+console.log(`Total regulatory facts: ${facts.length}`);
