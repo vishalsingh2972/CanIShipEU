@@ -164,3 +164,11 @@ export type Assessment = {
     evidenceIds?: string[];
   }[];
 };
+
+export type ResearchQuery = {
+  original: string;
+  rewrite?: string;
+  stepBack?: string;
+  subQuestions?: string[];
+  keywords?: string[];
+};

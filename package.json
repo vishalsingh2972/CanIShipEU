@@ -12,7 +12,12 @@
     "check:evidence": "tsx src/sources/testEvidence.ts",
     "check:matrix": "tsx src/regulatory/testFactMatrix.ts",
     "check:assessment": "tsx src/regulatory/testAssessment.ts",
-    "check:founder": "tsx src/founder/testFounder.ts"
+    "check:founder": "tsx src/founder/testFounder.ts",
+    "check:queries": "tsx src/research/testQueryPlanner.ts",
+    "check:retriever": "tsx src/research/testRetriever.ts",
+    "check:fusion": "tsx src/research/testFusion.ts",
+    "check:token-retriever": "tsx src/research/testTokenRetriever.ts",
+    "check:research": "tsx src/research/testResearch.ts"
   },
   "repository": {
     "type": "git",
