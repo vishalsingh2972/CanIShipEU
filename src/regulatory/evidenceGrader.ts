@@ -199,14 +199,24 @@ export function gradeEvidence(
   );
 
   // 3. Specificity
-  if (
-    chunk.location
-      ?.toLowerCase()
-      .includes("article") ||
-    chunk.location
-      ?.toLowerCase()
-      .includes("annex")
+  const location =
+    chunk.location?.toLowerCase() ?? "";
+
+  const hasArticleOrAnnex =
+    location.includes("article") ||
+    location.includes("annex");
+
+  const isTimelineEvidence =
+    chunk.evidenceType === "timeline";
+
+  if (hasArticleOrAnnex) {
+    specificityScore = 3;
+  } else if (
+    query.focus === "timeline" &&
+    isTimelineEvidence
   ) {
+    // Timeline evidence can be highly specific
+    // without pointing to an Article or Annex.
     specificityScore = 3;
   } else {
     specificityScore = 1;

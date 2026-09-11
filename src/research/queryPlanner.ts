@@ -73,6 +73,7 @@ export function buildResearchQueries(
     });
   }
 
+  // Automated decision influence.
   if (profile.decisionRole === "decision") {
     queries.push({
       original:
@@ -224,7 +225,7 @@ export function buildResearchQueries(
     });
   }
 
-  // Timeline.
+  // Timeline and applicability.
   if (profile.plannedLaunch) {
     queries.push({
       original:
@@ -233,20 +234,25 @@ export function buildResearchQueries(
       focus: "timeline",
 
       rewrite:
-        `Which relevant EU AI Act provisions and obligations will apply by ${profile.plannedLaunch}?`,
+        `Which relevant EU AI Act provisions and obligations will apply by ${profile.plannedLaunch}, especially the rules for Annex III high-risk systems?`,
 
       stepBack:
-        "What are the implementation and applicability dates for the EU AI Act?",
+        "What are the implementation and applicability dates for the EU AI Act, including Annex III high-risk systems?",
 
       subQuestions: [
         "Which relevant provisions are applicable by the planned launch date?",
+        "When do the Annex III high-risk rules become applicable?",
         "Are there transitional rules or later applicability dates?",
       ],
 
       keywords: [
-        "EU AI Act timeline",
+        "EU AI Act",
+        "AI Act timeline",
         "applicability",
         "implementation",
+        "Annex III",
+        "high-risk",
+        "2027",
         profile.plannedLaunch,
       ],
     });

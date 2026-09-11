@@ -58,5 +58,17 @@
     "jurisdiction": "EU",
     "retrievedAt": "2026-09-10",
     "evidenceType": "requirement"
+  },
+  {
+    "id": "evidence-ai-act-timeline-001",
+    "sourceId": "ai-act-applicability-timeline-2026",
+    "title": "European Commission — AI Act implementation timeline",
+    "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "location": "AI Act implementation timeline",
+    "text": "The European Commission implementation timeline identifies 2 August 2027 as the date when the high-risk requirements for AI systems listed in Annex III become applicable.",
+    "authority": "European Commission",
+    "jurisdiction": "EU",
+    "retrievedAt": "2026-09-10",
+    "evidenceType": "timeline"
   }
 ]

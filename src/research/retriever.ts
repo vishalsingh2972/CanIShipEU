@@ -32,18 +32,20 @@ function scoreKeyword(
   // Exact phrase match is strongest.
   if (searchableText.includes(normalizedKeyword)) {
     return normalizedKeyword.includes(" ")
-      ? 3
-      : 2;
+      ? 4
+      : 3;
   }
 
-  // For single words, also allow a word-level match.
+  // For single words, allow an exact word-level match.
   const words = normalizedKeyword.split(" ");
 
   if (words.length === 1) {
-    const textWords = new Set(searchableText.split(" "));
+    const textWords = new Set(
+      searchableText.split(" "),
+    );
 
     if (textWords.has(normalizedKeyword)) {
-      return 1;
+      return 2;
     }
   }
 

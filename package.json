@@ -23,7 +23,8 @@
     "check:gaps": "tsx src/regulatory/testVerifiedResearch.ts",
     "check:corrective": "tsx src/research/testCorrectiveResearch.ts",
     "check:pack": "tsx src/regulatory/testEvidencePack.ts",
-    "check:claims": "tsx src/regulatory/testClaimEvidence.ts"
+    "check:claims": "tsx src/regulatory/testClaimEvidence.ts",
+    "check:regression": "tsx src/regulatory/regressionTest.ts"
   },
   "repository": {
     "type": "git",
